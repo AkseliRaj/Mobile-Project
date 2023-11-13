@@ -1,5 +1,5 @@
 import { Image, Text, View } from "react-native";
-import logo from '../assets/expo.png'
+import logo from '../assets/LogoText.png'
 import styles from '../style/styles'
 
 export default function Loading() {

@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     logo: {
-      height: 130,
+      height: 230,
       resizeMode: 'contain'
     }
   });
