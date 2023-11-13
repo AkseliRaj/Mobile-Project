@@ -7,10 +7,24 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    
     logo: {
       height: 230,
       resizeMode: 'contain'
+    },
+
+    containerLogo: {
+      flex: 1,
+      backgroundColor: '#fff',
+    },
+
+    homeLogo: {
+      height: 130, 
+      width: 100, 
+      resizeMode: 'contain', 
+      alignSelf: 'flex-start'
     }
+
   });
 
   export default styles;

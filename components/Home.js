@@ -1,12 +1,12 @@
 import { Image, Text, View } from "react-native";
-import logo from '../assets/expo.png'
+import logo from '../assets/OnlyLogo.png'
 import styles from '../style/styles'
 
 export default function Home() {
     return (
-        <View>
+        <View style={styles.containerLogo}>
             <Image
-                style={styles.logo}
+                style={styles.homeLogo}
                 source={logo}
             />
             <Text>Welcome to Cryptex</Text>
