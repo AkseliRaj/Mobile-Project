@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { DataTable } from "react-native-paper";
 import { AntDesign } from '@expo/vector-icons';
 import logo from '../assets/OnlyLogo.png'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../style/styles'
 
 export default function Home() {
@@ -20,7 +19,7 @@ export default function Home() {
                     },
                 });
                 const result = await response.json();
-                console.log(JSON.stringify(result, null, 2));
+                // console.log(JSON.stringify(result, null, 2));
                 setItems(result.data.coins)
             } catch (error) {
                 console.error('Error fetching data:', error);
