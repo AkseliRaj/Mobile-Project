@@ -25,7 +25,7 @@ const StocksNavigator = () => (
     <Stack.Screen
       name='SpecificStock'
       component={SpecificStock}
-      options={{ headerShown: false }}
+      options={{ headerShown: true }}
     />
   </Stack.Navigator>
 );
