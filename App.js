@@ -2,16 +2,37 @@ import Home from './components/Home';
 import Loading from './components/Loading';
 import Stocks from './components/Stocks';
 import CurrencyConverter from './components/CurrencyConverter';
+import SpecificStock from './components/SpecificStock';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
 
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+
+const StocksNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      name='StocksNavigator'
+      component={Stocks}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name='SpecificStock'
+      component={SpecificStock}
+      options={{ headerShown: false }}
+    />
+  </Stack.Navigator>
+);
 
 export default function App() {
+  
+
   const [isloading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -28,36 +49,43 @@ export default function App() {
     return (
       <Loading />
     )
-  } 
+  }
   else {
+
+
     return (
       <NavigationContainer>
-        <Tab.Navigator screenOptions={{
-          tabBarActiveColor: '#004CFF',
-          tabBarInactivetColor: '#5B5B5B',
-          tabBarLabelPosition: 'beside-icon'
-        }}>
+        <Tab.Navigator
+          screenOptions={{
+            tabBarActiveColor: '#004CFF',
+            tabBarInactiveColor: '#5B5B5B',
+            tabBarLabelPosition: 'beside-icon',
+          }}
+        >
           <Tab.Screen
             name='Home'
             component={Home}
             options={{
-              tabBarIcon: ({ color }) => <MaterialCommunityIcons name="home" size={25} color={color} />,
+              tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='home' size={25} color={color} />),
             }}
           />
           <Tab.Screen
             name='Stocks'
-            component={Stocks}
-            options={{ tabBarIcon: ({ color }) => <MaterialCommunityIcons name="bulletin-board" size={25} color={color} /> }}
+            component={StocksNavigator}
+            options={{
+              tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='bulletin-board' size={25} color={color} />),
+            }}
           />
           <Tab.Screen
             name='CurrencyConverter'
             component={CurrencyConverter}
-            options={{ tabBarIcon: ({ color }) => <MaterialCommunityIcons name="currency-eur" size={25} color={color} /> }}
+            options={{
+              tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='currency-eur' size={25} color={color} />),
+            }}
           />
         </Tab.Navigator>
-        <StatusBar style="auto" />
+        <StatusBar style='auto' />
       </NavigationContainer>
-
     );
   }
 }
