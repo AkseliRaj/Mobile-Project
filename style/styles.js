@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
       width: 100, 
       resizeMode: 'contain', 
       alignSelf: 'flex-start'
-    }
+    },
 
   });
 
