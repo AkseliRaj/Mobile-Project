@@ -4,28 +4,20 @@ import { DataTable } from "react-native-paper";
 import { AntDesign } from '@expo/vector-icons';
 import logo from '../assets/OnlyLogo.png'
 import styles from '../style/styles'
+import { getCoins } from "../api/Functions";
+
 
 export default function Home() {
 
     const [items, setItems] = useState([])
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('https://api.coinranking.com/v2/coins', {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        // 'x-access-token': 'your-access-token-here',
-                    },
-                });
-                const result = await response.json();
-                // console.log(JSON.stringify(result, null, 2));
-                setItems(result.data.coins)
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
+        const fetchCoins = async () => {
+            const result = await getCoins();
+            setItems(result);
         };
-        fetchData();
+
+        fetchCoins();
     }, []);
 
     // const options = {
