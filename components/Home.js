@@ -2,6 +2,7 @@ import { Image, Pressable, Text, View } from "react-native";
 import { useState, useEffect } from 'react';
 import { DataTable } from "react-native-paper";
 import { AntDesign } from '@expo/vector-icons';
+import { SvgUri } from 'react-native-svg'
 import logo from '../assets/OnlyLogo.png'
 import styles from '../style/styles'
 import { getCoins } from "../api/Functions";
@@ -77,8 +78,15 @@ export default function Home() {
 
                 {items.slice(0, 3).map((item, index) => (
                     <DataTable.Row key={index}>
-                        <DataTable.Cell>{item.name} {item.symbol}</DataTable.Cell>
-                        <DataTable.Cell numeric>{item.price}</DataTable.Cell>
+                        <DataTable.Cell>
+                            <SvgUri
+                                width={18}
+                                height={18}
+                                uri={item.iconUrl}
+                            />
+                            {item.name} {item.symbol}
+                        </DataTable.Cell>
+                        <DataTable.Cell numeric>$ {parseFloat(item.price).toFixed(2)}</DataTable.Cell>
                         <DataTable.Cell numeric>{item.change}</DataTable.Cell>
                         <DataTable.Cell style={{ justifyContent: "center" }}>
                             <Pressable>
