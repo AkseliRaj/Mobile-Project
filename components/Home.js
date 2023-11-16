@@ -11,6 +11,8 @@ import { getCoins } from "../api/Functions";
 export default function Home() {
 
     const [items, setItems] = useState([])
+    const [filter, setFilter] = useState(true)
+ 
 
     useEffect(() => {
         const fetchCoins = async () => {
@@ -20,19 +22,6 @@ export default function Home() {
 
         fetchCoins();
     }, []);
-
-    // const options = {
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         // 'x-access-token': 'your-access-token-here',
-    //     },
-    // };
-
-    // fetch('https://api.coinranking.com/v2/coin/Qwsogvtv82FCd', options)
-    //     .then((response) => response.json())
-    //     .then((result) => setItems([result.data.coin]));
-
-    const [filter, setFilter] = useState(true);
 
     function priceFilter() {
         let lowerPrice = [...items].sort((a, b) => b.price - a.price);
