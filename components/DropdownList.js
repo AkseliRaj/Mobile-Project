@@ -1,4 +1,5 @@
-import { View, TextInput, StyleSheet, Image } from 'react-native'
+import { View, TextInput, StyleSheet } from 'react-native'
+import { Image } from 'expo-image'
 import React, { useEffect, useState } from 'react'
 import SelectDropdown from 'react-native-select-dropdown'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
@@ -22,24 +23,16 @@ const DropdownList = ({ currencyItems, setCurrency, placeholderValue, setAmount,
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-                {selectedItemIcon && selectedItemIcon.slice(-3) === "svg"
-                    ? <SvgUri
-                        width="30"
-                        height="30"
-                        uri={selectedItemIcon}
-                    />
-                    : <Image
-                        style={{width: 30, height: 30}}
-                        src={selectedItemIcon}
-                    />
-                }
+                <Image
+                    style={{ width: 30, height: 30 }}
+                    source={selectedItemIcon? selectedItemIcon : ""}
+                />
                 <SelectDropdown
                     data={items}
                     onSelect={(selectedItem, index) => {
                         setIsConverted(false)
                         setCurrency(selectedItem)
                         setSelectedItemIcon(currencyItems[index]?.image)
-                        console.log(currencyItems[index]?.image)
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
                         return currentItem ? currentItem : selectedItem
