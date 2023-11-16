@@ -13,7 +13,6 @@ export default function Home() {
     const [items, setItems] = useState([])
     const [filter, setFilter] = useState(true)
 
-
     useEffect(() => {
         const fetchCoins = async () => {
             const result = await getCoins();
