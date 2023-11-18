@@ -3,7 +3,7 @@ import React from 'react';
 import { View, Text, Button, Pressable } from 'react-native';
 import styles from '../style/styles'
 
-const Stocks = ({ navigationz }) => {
+const Stocks = ({ navigation }) => {
 
     const navigateToSpecificStock = () => {
         navigation.navigate('SpecificStock');
