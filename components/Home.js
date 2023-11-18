@@ -1,10 +1,9 @@
-import { Image, Pressable, ScrollView, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { useState, useEffect } from 'react';
 import { DataTable } from "react-native-paper";
 import { AntDesign } from '@expo/vector-icons';
 import { Image as ExpoImage } from 'expo-image';
 import logo from '../assets/OnlyLogo.png'
-import styles from '../style/styles'
 import { getCoins } from "../api/Functions";
 
 
@@ -38,71 +37,153 @@ export default function Home() {
         setItems(change);
     }
 
-
     return (
-        <View style={styles.containerLogo}>
+        <View style={styles.container}>
             <Image
-                style={styles.homeLogo}
+                style={styles.logo}
                 source={logo}
             />
-            <View style={{ gap: 10 }}>
-                <View style={{ gap: 10, marginLeft: 14, marginRight: 30 }}>
-                    <Text style={{ fontSize: 20, fontWeight: "bold" }}>Welcome to Cryptex</Text>
-                    <Text style={{ fontSize: 13 }}>Stay up-to-date with the latest market trends and explore a wide range of currencies.</Text>
-                    <Text style={{ fontSize: 13 }}>Make planning for your next investment convenient with the intuitive currency converter.</Text>
-                    <Text style={{ fontSize: 13 }}>Your trading journey starts <Text style={{ fontWeight: "bold" }}>here.</Text></Text>
-                </View>
 
-                <DataTable>
-                    <DataTable.Header>
-                        <DataTable.Title>
-                            <Text style={{ color: "black" }}>Name</Text>
-                        </DataTable.Title>
-                        <DataTable.Title numeric>
-                            <Text style={{ color: "black" }}>Price</Text>
-                            <AntDesign onPress={priceFilter} name="caretup" size={8} color="black" />
-                            <AntDesign onPress={priceFilter} name="caretdown" size={8} color="black" />
-                        </DataTable.Title>
-                        <DataTable.Title numeric>
-                            <Text style={{ color: "black" }}>Change</Text>
-                            <AntDesign onPress={changeFilter} name="caretup" size={8} color="black" />
-                            <AntDesign onPress={changeFilter} name="caretdown" size={8} color="black" />
-                        </DataTable.Title>
-                        <DataTable.Title></DataTable.Title>
-                    </DataTable.Header>
-
-                    {items.slice(0, 3).map((item, index) => (
-                        <DataTable.Row key={index}>
-                            <DataTable.Cell>
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <ExpoImage
-                                        style={{ width: 18, height: 18, marginRight: 8 }}
-                                        source={{ uri: item.iconUrl }}
-                                        contentFit="contain"
-                                    />
-                                    <View>
-                                        <Text style={{ fontSize: 11 }}>{item.name}</Text>
-                                        <Text style={{ fontSize: 11, color: "#B3B3B3" }}>{item.symbol}</Text>
-                                    </View>
-                                </View>
-                            </DataTable.Cell>
-                            <DataTable.Cell numeric>
-                                <Text style={{ fontSize: 11 }}>${parseFloat(item.price).toFixed(2)}</Text>
-                            </DataTable.Cell>
-                            <DataTable.Cell numeric>
-                                <Text style={{ fontSize: 11 }} >{item.change}</Text>
-                            </DataTable.Cell>
-                            <DataTable.Cell style={{ justifyContent: "center" }}>
-                                <Pressable style={{ backgroundColor: '#004CFF', borderRadius: 20 }} onPress={() => console.log(item)}>
-                                    <Text style={{ fontSize: 11, padding: 6, color: "white" }}>Open</Text>
-                                </Pressable>
-                            </DataTable.Cell>
-                        </DataTable.Row>
-                    ))}
-
-                </DataTable>
+            <View style={styles.article}>
+                <Text style={styles.header}>Welcome to Cryptex</Text>
+                <Text style={styles.text}>Stay up-to-date with the latest market trends and explore a wide range of currencies.</Text>
+                <Text style={styles.text}>Make planning for your next investment convenient with the intuitive currency converter.</Text>
+                <Text style={styles.text}>Your trading journey starts <Text style={styles.bold}>here.</Text></Text>
             </View>
+
+
+            <Text style={styles.subHeader}>Stocks, with the biggest <Text style={styles.bold}>price:</Text></Text>
+            <DataTable>
+                <DataTable.Header>
+                    <DataTable.Title>
+                        <Text style={styles.tableTittle}>Name</Text>
+                    </DataTable.Title>
+                    <DataTable.Title numeric>
+                        <Text style={styles.tableTittle}>Price</Text>
+                        <AntDesign onPress={priceFilter} name="caretup" size={8} color="black" />
+                        <AntDesign onPress={priceFilter} name="caretdown" size={8} color="black" />
+                    </DataTable.Title>
+                    <DataTable.Title numeric>
+                        <Text style={styles.tableTittle}>Change</Text>
+                        <AntDesign onPress={changeFilter} name="caretup" size={8} color="black" />
+                        <AntDesign onPress={changeFilter} name="caretdown" size={8} color="black" />
+                    </DataTable.Title>
+                    <DataTable.Title></DataTable.Title>
+                </DataTable.Header>
+
+                {items.slice(0, 3).map((item, index) => (
+                    <DataTable.Row key={index}>
+                        <DataTable.Cell>
+                            <View style={styles.tableRow}>
+                                <ExpoImage
+                                    style={styles.tableIcon}
+                                    source={{ uri: item.iconUrl }}
+                                    contentFit="contain"
+                                />
+                                <View>
+                                    <Text style={styles.tableText}>{item.name}</Text>
+                                    <Text style={styles.tableTextColor}>{item.symbol}</Text>
+                                </View>
+                            </View>
+                        </DataTable.Cell>
+                        <DataTable.Cell numeric>
+                            <Text style={styles.tableText}>${parseFloat(item.price).toFixed(2)}</Text>
+                        </DataTable.Cell>
+                        <DataTable.Cell numeric>
+                            <Text style={styles.tableText}>{item.change}</Text>
+                        </DataTable.Cell>
+                        <DataTable.Cell style={styles.tableButtonCell}>
+                            <Pressable style={styles.tableButton} onPress={() => console.log(item)}>
+                                <Text style={styles.tableButtonText}>Open</Text>
+                            </Pressable>
+                        </DataTable.Cell>
+                    </DataTable.Row>
+                ))}
+
+            </DataTable>
         </View>
     )
-
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff'
+    },
+
+    logo: {
+        height: 120,
+        width: 127,
+        resizeMode: 'contain',
+        alignSelf: 'flex-start'
+    },
+
+    article: {
+        gap: 12,
+        marginLeft: 14,
+        marginRight: 30,
+        marginBottom: 20
+    },
+
+    header: {
+        fontSize: 20,
+        fontWeight: "bold"
+    },
+
+    text: {
+        fontSize: 13
+    },
+
+    bold: {
+        fontWeight: "bold"
+    },
+
+    subHeader: {
+        fontSize: 16,
+        marginLeft: 14,
+        marginBottom: 10
+    },
+
+    tableTittle: {
+        color: "black"
+    },
+
+    tableRow: {
+        flexDirection: "row",
+        alignItems: "center"
+    },
+
+    tableIcon: {
+        width: 24,
+        height: 24,
+        marginRight: 8
+    },
+
+    tableText: {
+        fontSize: 11,
+    },
+
+    tableTextColor: {
+        fontSize: 11,
+        color: "#B3B3B3" 
+    },
+
+    tableButtonCell: {
+        justifyContent: "center" 
+    },
+
+    tableButton: {
+        backgroundColor: '#004CFF', 
+        padding: 3, 
+        borderRadius: 20
+    },
+
+    tableButtonText: {
+        fontSize: 11, 
+        width: 40, 
+        height: 17, 
+        textAlign: "center", 
+        color: "white"
+    }
+
+})

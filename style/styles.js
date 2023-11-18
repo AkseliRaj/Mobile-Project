@@ -13,18 +13,6 @@ const styles = StyleSheet.create({
       resizeMode: 'contain'
     },
 
-    containerLogo: {
-      flex: 1,
-      backgroundColor: '#fff',
-    },
-
-    homeLogo: {
-      height: 120, 
-      width: 127, 
-      resizeMode: 'contain', 
-      alignSelf: 'flex-start'
-    },
-
   });
 
   export default styles;
