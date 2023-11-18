@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
     },
 
     homeLogo: {
-      height: 130, 
-      width: 100, 
+      height: 120, 
+      width: 127, 
       resizeMode: 'contain', 
       alignSelf: 'flex-start'
     },
