@@ -71,37 +71,34 @@ export default function Home() {
                         <DataTable.Title></DataTable.Title>
                     </DataTable.Header>
 
-                    <View>
-                        {items.slice(0, 3).map((item, index) => (
-                            <DataTable.Row key={index}>
-                                <DataTable.Cell>
-                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                        <ExpoImage
-                                            style={{ width: 18, height: 18, marginRight: 8 }}
-                                            source={{ uri: item.iconUrl }}
-                                            contentFit="contain"
-                                        />
-                                        <View>
-                                            <Text style={{ fontSize: 11 }}>{item.name}</Text>
-                                            <Text style={{ fontSize: 11, color: "#B3B3B3" }}>{item.symbol}</Text>
-                                        </View>
+                    {items.slice(0, 3).map((item, index) => (
+                        <DataTable.Row key={index}>
+                            <DataTable.Cell>
+                                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                    <ExpoImage
+                                        style={{ width: 18, height: 18, marginRight: 8 }}
+                                        source={{ uri: item.iconUrl }}
+                                        contentFit="contain"
+                                    />
+                                    <View>
+                                        <Text style={{ fontSize: 11 }}>{item.name}</Text>
+                                        <Text style={{ fontSize: 11, color: "#B3B3B3" }}>{item.symbol}</Text>
                                     </View>
-                                </DataTable.Cell>
-                                <DataTable.Cell numeric>
-                                    <Text style={{ fontSize: 11 }}>${parseFloat(item.price).toFixed(2)}</Text>
-                                </DataTable.Cell>
-                                <DataTable.Cell numeric>
-                                    <Text style={{ fontSize: 11 }} >{item.change}</Text>
-                                </DataTable.Cell>
-                                <DataTable.Cell style={{ justifyContent: "center" }}>
-                                    <Pressable style={{ backgroundColor: '#004CFF', borderRadius: 20 }} onPress={() => console.log(item)}>
-                                        <Text style={{ fontSize: 11, padding: 6, color: "white" }}>Open</Text>
-                                    </Pressable>
-                                </DataTable.Cell>
-                            </DataTable.Row>
-                        ))}
-                    </View>
-
+                                </View>
+                            </DataTable.Cell>
+                            <DataTable.Cell numeric>
+                                <Text style={{ fontSize: 11 }}>${parseFloat(item.price).toFixed(2)}</Text>
+                            </DataTable.Cell>
+                            <DataTable.Cell numeric>
+                                <Text style={{ fontSize: 11 }} >{item.change}</Text>
+                            </DataTable.Cell>
+                            <DataTable.Cell style={{ justifyContent: "center" }}>
+                                <Pressable style={{ backgroundColor: '#004CFF', borderRadius: 20 }} onPress={() => console.log(item)}>
+                                    <Text style={{ fontSize: 11, padding: 6, color: "white" }}>Open</Text>
+                                </Pressable>
+                            </DataTable.Cell>
+                        </DataTable.Row>
+                    ))}
 
                 </DataTable>
             </View>
