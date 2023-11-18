@@ -72,7 +72,7 @@ export default function Home() {
                 </DataTable.Header>
 
                 {items.slice(0, 3).map((item, index) => (
-                    <DataTable.Row key={index}>
+                    <DataTable.Row onPress={() => console.log(item)} key={index}>
                         <DataTable.Cell>
                             <View style={styles.tableRow}>
                                 <ExpoImage
