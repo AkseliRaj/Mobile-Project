@@ -20,12 +20,12 @@ const StocksNavigator = () => (
     <Stack.Screen
       name='StocksNavigator'
       component={Stocks}
-      options={{ headerShown: false }}
+      options={{ headerShown: true }}
     />
     <Stack.Screen
       name='SpecificStock'
       component={SpecificStock}
-      options={{ headerShown: true }}
+      options={{ tabBarStyle: {display: 'none'} }}
     />
   </Stack.Navigator>
 );
@@ -73,6 +73,7 @@ export default function App() {
             name='Stocks'
             component={StocksNavigator}
             options={{
+              headerShown: false,
               tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='bulletin-board' size={25} color={color} />),
             }}
           />
