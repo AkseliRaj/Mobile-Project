@@ -33,6 +33,7 @@ const CurrencyConverter = () => {
     }
 
     const convertCurrency = async () => {
+        
         try {
             const currencyId = findUuidByTitle(currencies, currencyInput)
             const cryptoId = findUuidByTitle(cryptos, cryptoInput)
@@ -49,8 +50,9 @@ const CurrencyConverter = () => {
             })
 
             const rate = response.data.data.coin.price
-            const calculus = amount * Number(rate).toFixed(6)
-            setResult(calculus)
+            const calculus = amount * Number(rate)
+            console.log(typeof(calculus))
+            setResult(calculus.toFixed(6))
             setIsConverted(true)
         } catch (error) {
             console.log(error)
@@ -66,7 +68,7 @@ const CurrencyConverter = () => {
                 },
             })
 
-            const currencyData = response.data.data.currencies;
+            const currencyData = response.data.data.currencies
 
             const filteredData = currencyData.map(currency => ({
                 uuid: currency.uuid,
@@ -80,7 +82,7 @@ const CurrencyConverter = () => {
                 uuid: currency.uuid,
             }));
 
-            setCurrencies(currencyObjects);
+            setCurrencies(currencyObjects)
         } catch (error) {
             console.log(error)
         }
@@ -93,7 +95,7 @@ const CurrencyConverter = () => {
                     'Accept': 'text/plain',
                     'x-access-token': API_KEY,
                 },
-            });
+            })
 
             const cryptoData = response.data.data.coins;
 
@@ -101,13 +103,13 @@ const CurrencyConverter = () => {
                 uuid: crypto.uuid,
                 symbol: crypto.symbol,
                 iconUrl: crypto.iconUrl,
-            }));
+            }))
 
             const cryptoObjects = filteredData.map(crypto => ({
                 title: crypto.symbol,
                 image: crypto.iconUrl,
                 uuid: crypto.uuid,
-            }));
+            }))
 
             setCryptos(cryptoObjects)
         } catch (error) {
@@ -120,7 +122,7 @@ const CurrencyConverter = () => {
     }
 
     return (
-        <View style={[styles.container, { marginTop: Constants.statusBarHeight }]}>
+        <View style={[styles.container, { paddingTop: Constants.statusBarHeight }]}>
             <Text style={styles.header}>Currency Converter</Text>
             <Text style={styles.subHeader}>Convert {isSwapped ? currencyInput : cryptoInput} to {isSwapped ? cryptoInput : currencyInput}</Text>
             <View style={styles.converterContainer}>
@@ -163,14 +165,14 @@ const CurrencyConverter = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "fafafa",
         alignItems: 'center',
         justifyContent: 'center',
-        marginHorizontal: 20
+        paddingHorizontal: 20,
+        backgroundColor: "white",
     },
     header: {
         fontSize: 25,
-        marginTop: 20,
+        paddingTop: 20,
         fontWeight: "bold"
     },
     subHeader: {
