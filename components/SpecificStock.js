@@ -3,12 +3,40 @@ import { View, Text, Pressable, Dimensions } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
 import styles from '../style/styles';
 import { LineChart } from "react-native-chart-kit";
+import { useEffect, useState } from 'react';
+import { getCoinDetails } from '../api/Functions';
+import Loading from './Loading';
+
+// Hard coded uuid for testing purposes
+const UUID = 'Qwsogvtv82FCd'
 
 const SpecificStock = ({ navigation }) => {
+
+  const [coin, setCoin] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigateToCurrencyConverter = () => {
     navigation.navigate('CurrencyConverter');
   };
+
+// Getting data from the API
+
+  useEffect(() => {
+    const fetchCoinDetails = async () => {
+      const result = await getCoinDetails(UUID);
+      setCoin(result);
+      setIsLoading(false);
+    };
+
+    fetchCoinDetails();
+  }, [UUID]);
+
+  if (isLoading) {
+    return (
+      <Loading />
+    );
+  }
+
 
   return (
     <View style={styles.container}>
@@ -57,24 +85,24 @@ const SpecificStock = ({ navigation }) => {
         }}
       />
       <View>
-        <Text>Bitcoin</Text>
+        <Text>{coin.name}</Text>
       </View>
       <View>
         <View>
           <Text>Price</Text>
-          <Text>$ 35,204.19</Text>
+          <Text>{parseFloat(coin.price).toFixed(2)} $</Text>
         </View>
         <View>
-          <Text>Market Share</Text>
-          <Text>51.5152 %</Text>
+          <Text>Volume 24h</Text>
+          <Text>{coin['24hVolume']} $</Text>
         </View>
         <View>
           <Text>Circulating supply</Text>
-          <Text>19,534,937 BTC</Text>
+          <Text>{coin.supply.circulating} BTC</Text>
         </View>
         <View>
           <Text>Market Cap</Text>
-          <Text>682,995,610,945</Text>
+          <Text>{coin.marketCap} $</Text>
         </View>
       </View>
 
