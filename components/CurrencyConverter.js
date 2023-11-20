@@ -7,10 +7,7 @@ import Constants from 'expo-constants'
 import DropdownList from './DropdownList'
 import ConvertButton from './ConvertButton'
 import ConversionResult from './ConversionResult'
-
-const API_KEY = "coinrankinga78ffc470da1eaa3a13416d29252860514b44d60ef10b10e"
-const BASE_URL = "https://api.coinranking.com/v2"
-
+import { getCoins, getFiatCurrencies, getCoinDetails } from '../api/Functions'
 
 const CurrencyConverter = () => {
     const [cryptoInput, setCryptoInput] = useState("BTC")
@@ -33,89 +30,57 @@ const CurrencyConverter = () => {
     }
 
     const convertCurrency = async () => {
-        
-        try {
-            const currencyId = findUuidByTitle(currencies, currencyInput)
-            const cryptoId = findUuidByTitle(cryptos, cryptoInput)
+        const currencyId = findUuidByTitle(currencies, currencyInput)
+        const cryptoId = findUuidByTitle(cryptos, cryptoInput)
 
-            const convertingParameters = isSwapped
-                ? `${currencyId}?referenceCurrencyUuid=${cryptoId}`
-                : `${cryptoId}?referenceCurrencyUuid=${currencyId}`
+        const convertingParameters = isSwapped
+            ? `${currencyId}?referenceCurrencyUuid=${cryptoId}`
+            : `${cryptoId}?referenceCurrencyUuid=${currencyId}`
 
-            const response = await axios.get(`${BASE_URL}/coin/${convertingParameters}`, {
-                headers: {
-                    'Accept': 'text/plain',
-                    'X-CoinAPI-Key': API_KEY,
-                },
-            })
+  
+        const response = await getCoinDetails(convertingParameters)
 
-            const rate = response.data.data.coin.price
-            const calculus = amount * Number(rate)
-            console.log(typeof(calculus))
-            setResult(calculus.toFixed(6))
-            setIsConverted(true)
-        } catch (error) {
-            console.log(error)
-        }
+        const calculus = amount * Number(response.price)
+        setResult(calculus.toFixed(6))
+        setIsConverted(true)
     }
 
     const createCurrencyItems = async () => {
-        try {
-            const response = await axios.get(`${BASE_URL}/reference-currencies`, {
-                headers: {
-                    'Accept': 'text/plain',
-                    'x-access-token': API_KEY,
-                },
-            })
+        const currencyData = await getFiatCurrencies()
 
-            const currencyData = response.data.data.currencies
+        const filteredData = currencyData.map(currency => ({
+            uuid: currency.uuid,
+            symbol: currency.symbol,
+            iconUrl: currency.iconUrl,
+        }));
 
-            const filteredData = currencyData.map(currency => ({
-                uuid: currency.uuid,
-                symbol: currency.symbol,
-                iconUrl: currency.iconUrl,
-            }));
+        const currencyObjects = filteredData.map(currency => ({
+            title: currency.symbol,
+            image: currency.iconUrl,
+            uuid: currency.uuid,
+        }));
 
-            const currencyObjects = filteredData.map(currency => ({
-                title: currency.symbol,
-                image: currency.iconUrl,
-                uuid: currency.uuid,
-            }));
+        setCurrencies(currencyObjects)
 
-            setCurrencies(currencyObjects)
-        } catch (error) {
-            console.log(error)
-        }
-    };
+    }
 
     const createCryptoItems = async () => {
-        try {
-            const response = await axios.get(`${BASE_URL}/coins?limit=20`, {
-                headers: {
-                    'Accept': 'text/plain',
-                    'x-access-token': API_KEY,
-                },
-            })
+        const cryptoData = await getCoins()
 
-            const cryptoData = response.data.data.coins;
+        const filteredData = cryptoData.map(crypto => ({
+            uuid: crypto.uuid,
+            symbol: crypto.symbol,
+            iconUrl: crypto.iconUrl,
+        }))
 
-            const filteredData = cryptoData.map(crypto => ({
-                uuid: crypto.uuid,
-                symbol: crypto.symbol,
-                iconUrl: crypto.iconUrl,
-            }))
+        const cryptoObjects = filteredData.map(crypto => ({
+            title: crypto.symbol,
+            image: crypto.iconUrl,
+            uuid: crypto.uuid,
+        }))
 
-            const cryptoObjects = filteredData.map(crypto => ({
-                title: crypto.symbol,
-                image: crypto.iconUrl,
-                uuid: crypto.uuid,
-            }))
-
-            setCryptos(cryptoObjects)
-        } catch (error) {
-            console.log(error)
-        }
-    };
+        setCryptos(cryptoObjects)
+    }
 
     const swapTextInput = () => {
         setIsSwapped(!isSwapped)
