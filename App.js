@@ -81,7 +81,7 @@ export default function App() {
             options={{
               tabBarLabelPosition: 'below-icon',
               headerShown: false,
-              title: "Home",
+              title: 'Home',
               tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='home' size={25} color={color} />),
             }}
           />
