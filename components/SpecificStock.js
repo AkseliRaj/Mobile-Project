@@ -8,9 +8,11 @@ import { getCoinDetails } from '../api/Functions';
 import Loading from './Loading';
 
 // Hard coded uuid for testing purposes
-const UUID = 'Qwsogvtv82FCd'
+// const UUID = 'Qwsogvtv82FCd'
 
-const SpecificStock = ({ navigation }) => {
+const SpecificStock = ({ navigation, route }) => {
+
+  const { uuid } = route.params;
 
   const [coin, setCoin] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -23,13 +25,13 @@ const SpecificStock = ({ navigation }) => {
 
   useEffect(() => {
     const fetchCoinDetails = async () => {
-      const result = await getCoinDetails(UUID);
+      const result = await getCoinDetails(uuid);
       setCoin(result);
       setIsLoading(false);
     };
 
     fetchCoinDetails();
-  }, [UUID]);
+  }, [uuid]);
 
   if (isLoading) {
     return (
