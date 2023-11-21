@@ -5,9 +5,11 @@ import { AntDesign } from '@expo/vector-icons';
 import { Image as ExpoImage } from 'expo-image';
 import logo from '../assets/OnlyLogo.png'
 import { getCoins } from "../api/Functions";
+import { useNavigation } from '@react-navigation/native';
 
 
-export default function Home() {
+export default function Home({ navigation }) {
+    
 
     const [items, setItems] = useState([])
     const [filter, setFilter] = useState(true)
@@ -93,7 +95,7 @@ export default function Home() {
                             <Text style={styles.tableText}>{item.change}</Text>
                         </DataTable.Cell>
                         <DataTable.Cell style={styles.tableButtonCell}>
-                            <Pressable style={styles.tableButton} onPress={() => console.log(item)}>
+                            <Pressable style={styles.tableButton} onPress={() => navigation.navigate('SpecificStock', { uuid: item.uuid })}>
                                 <Text style={styles.tableButtonText}>Open</Text>
                             </Pressable>
                         </DataTable.Cell>
