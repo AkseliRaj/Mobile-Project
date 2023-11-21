@@ -30,6 +30,21 @@ const StocksNavigator = () => (
   </Stack.Navigator>
 );
 
+const HomeNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      name='Home'
+      component={Home}
+      options={{ headerShown: true }}
+    />
+    <Stack.Screen
+      name='SpecificStock'
+      component={SpecificStock}
+      options={{ tabBarStyle: {display: 'none'} }}
+    />
+  </Stack.Navigator>
+);
+
 export default function App() {
   
 
@@ -52,7 +67,7 @@ export default function App() {
   }
   else {
 
-
+    
     return (
       <NavigationContainer>
         <Tab.Navigator
@@ -63,10 +78,12 @@ export default function App() {
           }}
         >
           <Tab.Screen
-            name='Home'
-            component={Home}
+            name='Name'
+            component={HomeNavigator}
             options={{
               tabBarLabelPosition: 'below-icon',
+              headerShown: false,
+              title: "Home",
               tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='home' size={25} color={color} />),
             }}
           />
