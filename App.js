@@ -66,6 +66,7 @@ export default function App() {
             name='Home'
             component={Home}
             options={{
+              tabBarLabelPosition: 'below-icon',
               tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='home' size={25} color={color} />),
             }}
           />
@@ -73,6 +74,7 @@ export default function App() {
             name='Stocks'
             component={StocksNavigator}
             options={{
+              tabBarLabelPosition: 'below-icon',             
               headerShown: false,
               tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='bulletin-board' size={25} color={color} />),
             }}
@@ -81,6 +83,7 @@ export default function App() {
             name='CurrencyConverter'
             component={CurrencyConverter}
             options={{
+              tabBarLabelPosition: 'below-icon',
               tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='currency-eur' size={25} color={color} />),
             }}
           />
