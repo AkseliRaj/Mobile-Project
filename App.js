@@ -81,6 +81,7 @@ export default function App() {
             options={{
               tabBarLabelPosition: 'below-icon',
               headerShown: false,
+              unmountOnBlur: true,
               title: 'Home',
               tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='home' size={25} color={color} />),
             }}
@@ -91,6 +92,7 @@ export default function App() {
             options={{
               tabBarLabelPosition: 'below-icon',
               headerShown: false,
+              unmountOnBlur: true,
               tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='bulletin-board' size={25} color={color} />),
             }}
           />
