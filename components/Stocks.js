@@ -71,7 +71,7 @@ function changeFilter() {
                 </DataTable.Header>
 
                 {items.map((item, index) => (
-                    <DataTable.Row onPress={() => console.log(item)} key={index}>
+                    <DataTable.Row key={index}>
                         <DataTable.Cell>
                             <View style={styles.tableRow}>
                                 <ExpoImage
