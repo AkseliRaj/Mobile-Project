@@ -87,27 +87,29 @@ const SpecificStock = ({ navigation, route }) => {
           }}
         />
       </View>
-      <View>
+      <View style={styles.dataWholeContainer}>
         <View style={styles.coinNameHeadingContainer}>
+          <ExpoImage
+            style={styles.coinIcon}
+            source={{ uri: coin.iconUrl }}
+          />
           <Text style={styles.coinNameHeading}>{coin.name}</Text>
         </View>
+        <View style={styles.dataContainer}>
+          <Text style={styles.dataHeading}>Price</Text>
+          <Text style={styles.dataText}>{parseFloat(coin.price).toFixed(2)} $</Text>
+        </View>
+        <View style={styles.dataContainer}>
+          <Text style={styles.dataHeading}>Volume 24h</Text>
+          <Text style={styles.dataText}>{coin['24hVolume']} $</Text>
+        </View>
+        <View style={styles.dataContainer}>
+          <Text style={styles.dataHeading}>Circulating supply</Text>
+          <Text style={styles.dataText}>{coin.supply.circulating} Coins</Text>
+        </View>
         <View>
-          <View style={styles.dataContainer}>
-            <Text style={styles.dataHeading}>Price</Text>
-            <Text style={styles.dataText}>{parseFloat(coin.price).toFixed(2)} $</Text>
-          </View>
-          <View style={styles.dataContainer}>
-            <Text style={styles.dataHeading}>Volume 24h</Text>
-            <Text style={styles.dataText}>{coin['24hVolume']} $</Text>
-          </View>
-          <View style={styles.dataContainer}>
-            <Text style={styles.dataHeading}>Circulating supply</Text>
-            <Text style={styles.dataText}>{coin.supply.circulating} BTC</Text>
-          </View>
-          <View>
-            <Text style={styles.dataHeading}>Market Cap</Text>
-            <Text style={styles.dataText}>{coin.marketCap} $</Text>
-          </View>
+          <Text style={styles.dataHeading}>Market Cap</Text>
+          <Text style={styles.dataText}>{coin.marketCap} $</Text>
         </View>
       </View>
 
@@ -133,6 +135,7 @@ const styles = StyleSheet.create({
   },
 
   coinNameHeadingContainer: {
+    flexDirection: 'row',
     marginBottom: 25,
     marginTop: 25,
   },
@@ -143,6 +146,10 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     overflow: 'hidden', // This is important to prevent overflow of border
     padding: 5,
+  },
+
+  dataWholeContainer: {
+    marginRight: 30,
   },
 
   coinNameHeading: {
@@ -173,6 +180,11 @@ const styles = StyleSheet.create({
     color: "white",
   },
 
+  coinIcon: {
+    width: 30,
+    height: 30,
+    marginRight: 10,
+  },
 })
 
 export default SpecificStock;
