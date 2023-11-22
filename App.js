@@ -45,6 +45,21 @@ const HomeNavigator = () => (
   </Stack.Navigator>
 );
 
+/**
+ * Resets tabs with stackNavigators to the first route when navigation to another tab
+ */
+const resetTabStacksOnBlur = ({navigation}) => ({
+  blur: () => {
+    const state = navigation.getState();
+
+    state.routes.forEach((route, tabIndex) => {
+      if (state?.index !== tabIndex && route.state?.index > 0) {
+        navigation.dispatch(StackActions.popToTop());
+      }
+    });
+  },
+});
+
 export default function App() {
 
   const [isloading, setIsLoading] = useState(true);
@@ -81,7 +96,6 @@ export default function App() {
             options={{
               tabBarLabelPosition: 'below-icon',
               headerShown: false,
-              unmountOnBlur: true,
               title: 'Home',
               tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='home' size={25} color={color} />),
             }}
@@ -92,7 +106,6 @@ export default function App() {
             options={{
               tabBarLabelPosition: 'below-icon',
               headerShown: false,
-              unmountOnBlur: true,
               tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='bulletin-board' size={25} color={color} />),
             }}
           />
