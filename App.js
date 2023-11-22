@@ -45,21 +45,6 @@ const HomeNavigator = () => (
   </Stack.Navigator>
 );
 
-/**
- * Resets tabs with stackNavigators to the first route when navigation to another tab
- */
-const resetTabStacksOnBlur = ({navigation}) => ({
-  blur: () => {
-    const state = navigation.getState();
-
-    state.routes.forEach((route, tabIndex) => {
-      if (state?.index !== tabIndex && route.state?.index > 0) {
-        navigation.dispatch(StackActions.popToTop());
-      }
-    });
-  },
-});
-
 export default function App() {
 
   const [isloading, setIsLoading] = useState(true);
