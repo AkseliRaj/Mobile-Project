@@ -5,6 +5,7 @@ import { LineChart } from "react-native-chart-kit";
 import { useEffect, useState } from 'react';
 import { getCoinDetails } from '../api/Functions';
 import Loading from './Loading';
+import { ScrollView } from 'react-native-gesture-handler';
 
 // Hard coded uuid for testing purposes
 // const UUID = 'Qwsogvtv82FCd'
@@ -20,7 +21,7 @@ const SpecificStock = ({ navigation, route }) => {
     navigation.navigate('CurrencyConverter');
   };
 
-// Getting data from the API
+  // Getting data from the API
 
   useEffect(() => {
     const fetchCoinDetails = async () => {
@@ -79,7 +80,7 @@ const SpecificStock = ({ navigation, route }) => {
               stroke: "#004CFF"
             }
           }}
-          
+
           style={{
             marginVertical: 8,
             borderRadius: 16,
@@ -109,10 +110,10 @@ const SpecificStock = ({ navigation, route }) => {
           </View>
         </View>
       </View>
-      
+
 
       <Pressable style={styles.SpecificStockButton} onPress={navigateToCurrencyConverter}>
-        <Text style={styles.SpecificStockButtonText}>Go to Currency Converter page</Text>
+        <Text style={styles.SpecificStockButtonText}>Currency Converter</Text>
       </Pressable>
     </View>
   );
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
   dataContainer: {
     marginBottom: 13,
   },
-  
+
   coinNameHeadingContainer: {
     marginBottom: 25,
     marginTop: 25,
@@ -146,28 +147,28 @@ const styles = StyleSheet.create({
 
   coinNameHeading: {
     fontWeight: "bold",
-    fontSize: 26,
-  },  
+    fontSize: 20,
+  },
 
   dataHeading: {
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 13,
   },
 
   dataText: {
-    fontSize: 14,
+    fontSize: 13,
   },
 
   SpecificStockButton: {
     backgroundColor: '#004CFF',
     borderRadius: 14,
-    padding: 13,
-    paddingHorizontal: 25,
+    padding: 10,
+    paddingHorizontal: 20,
     marginTop: 30,
   },
 
   SpecificStockButtonText: {
-    fontSize: 15,
+    fontSize: 13,
     textAlign: "center",
     color: "white",
   },
