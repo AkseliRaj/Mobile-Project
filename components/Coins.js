@@ -92,7 +92,7 @@ function changeFilter() {
                             <Text style={styles.tableText}>{item.change}</Text>
                         </DataTable.Cell>
                         <DataTable.Cell style={styles.tableButtonCell}>
-                            <Pressable style={styles.tableButton} onPress={() => navigation.navigate('SpecificStock', { uuid: item.uuid })}>
+                            <Pressable style={styles.tableButton} onPress={() => navigation.navigate('Specific coin', { uuid: item.uuid })}>
                                 <Text style={styles.tableButtonText}>Open</Text>
                             </Pressable>
                         </DataTable.Cell>

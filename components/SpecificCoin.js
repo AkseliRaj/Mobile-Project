@@ -18,7 +18,7 @@ const SpecificStock = ({ navigation, route }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const navigateToCurrencyConverter = () => {
-    navigation.navigate('CurrencyConverter',coin.symbol);
+    navigation.navigate('Currency converter',coin.symbol);
   };
 
   // Getting data from the API
@@ -115,7 +115,7 @@ const SpecificStock = ({ navigation, route }) => {
 
 
       <Pressable style={styles.SpecificStockButton} onPress={navigateToCurrencyConverter}>
-        <Text style={styles.SpecificStockButtonText}>Currency Converter</Text>
+        <Text style={styles.SpecificStockButtonText}>Currency converter</Text>
       </Pressable>
     </View>
   );

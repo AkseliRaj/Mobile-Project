@@ -92,7 +92,7 @@ const CurrencyConverter = ({ route }) => {
 
     return (
         <View style={[styles.container, { paddingTop: Constants.statusBarHeight }]}>
-            <Text style={styles.header}>Currency Converter</Text>
+            <Text style={styles.header}>Currency converter</Text>
             <Text style={styles.subHeader}>Convert {isSwapped ? currencyInput : cryptoInput} to {isSwapped ? cryptoInput : currencyInput}</Text>
             <View style={styles.converterContainer}>
                 <DropdownList
