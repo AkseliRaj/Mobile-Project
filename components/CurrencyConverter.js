@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { Ionicons } from '@expo/vector-icons'
 
 import Constants from 'expo-constants'
@@ -9,7 +8,7 @@ import ConvertButton from './ConvertButton'
 import ConversionResult from './ConversionResult'
 import { getCoins, getFiatCurrencies, getCoinDetails } from '../api/Functions'
 
-const CurrencyConverter = () => {
+const CurrencyConverter = ({ route }) => {
     const [cryptoInput, setCryptoInput] = useState("BTC")
     const [currencyInput, setCurrencyInput] = useState("USD")
     const [amount, setAmount] = useState(1)
@@ -20,10 +19,16 @@ const CurrencyConverter = () => {
     const [currencies, setCurrencies] = useState([])
 
     useEffect(() => {
+        setAmount(1)
         createCurrencyItems()
         createCryptoItems()
     }, [])
 
+    useEffect(() => {
+        setCryptoInput(route?.params)
+    }, [route?.params])
+
+ 
     const findUuidByTitle = (array, nameToFind) => {
         const foundObject = array.find(obj => obj.title === nameToFind)
         return foundObject ? foundObject.uuid : null
@@ -37,7 +42,6 @@ const CurrencyConverter = () => {
             ? `${currencyId}?referenceCurrencyUuid=${cryptoId}`
             : `${cryptoId}?referenceCurrencyUuid=${currencyId}`
 
-  
         const response = await getCoinDetails(convertingParameters)
 
         const calculus = amount * Number(response.price)
@@ -58,7 +62,7 @@ const CurrencyConverter = () => {
             title: currency.symbol,
             image: currency.iconUrl,
             uuid: currency.uuid,
-        }));
+        }))
 
         setCurrencies(currencyObjects)
 

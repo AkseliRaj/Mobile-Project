@@ -18,7 +18,8 @@ const SpecificStock = ({ navigation, route }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const navigateToCurrencyConverter = () => {
-    navigation.navigate('CurrencyConverter');
+    console.log(coin.symbol)
+    navigation.navigate('CurrencyConverter',coin.symbol);
   };
 
   // Getting data from the API
