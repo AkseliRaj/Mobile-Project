@@ -2,7 +2,7 @@ import Home from './components/Home';
 import Loading from './components/Loading';
 import Coins from './components/Coins';
 import CurrencyConverter from './components/CurrencyConverter';
-import SpecificStock from './components/SpecificCoin';
+import SpecificCoin from './components/SpecificCoin';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -24,7 +24,7 @@ const StocksNavigator = () => (
     />
     <Stack.Screen
       name='Specific coin'
-      component={SpecificStock}
+      component={SpecificCoin}
       options={{ tabBarStyle: { display: 'none' } }}
     />
   </Stack.Navigator>
@@ -39,7 +39,7 @@ const HomeNavigator = () => (
     />
     <Stack.Screen
       name='Specific coin'
-      component={SpecificStock}
+      component={SpecificCoin}
       options={{ tabBarStyle: { display: 'none' } }}
     />
   </Stack.Navigator>

@@ -10,7 +10,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 // Hard coded uuid for testing purposes
 // const UUID = 'Qwsogvtv82FCd'
 
-const SpecificStock = ({ navigation, route }) => {
+const SpecificCoin = ({ navigation, route }) => {
 
   const { uuid } = route.params;
 
@@ -187,4 +187,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default SpecificStock;
+export default SpecificCoin;
