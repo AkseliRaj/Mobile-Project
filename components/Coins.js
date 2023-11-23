@@ -10,7 +10,7 @@ import { Image as ExpoImage } from 'expo-image';
 import { useNavigation } from '@react-navigation/native';
 
 
-const Stocks = ({ navigation }) => {
+const Coins = ({ navigation }) => {
 
   const [items, setItems] = useState([])
   const [filter, setFilter] = useState(true)
@@ -187,6 +187,6 @@ const styles = StyleSheet.create({
 
 })
 
-export default Stocks;
+export default Coins;
 
 

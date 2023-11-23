@@ -1,6 +1,6 @@
 import Home from './components/Home';
 import Loading from './components/Loading';
-import Stocks from './components/Stocks';
+import Coins from './components/Coins';
 import CurrencyConverter from './components/CurrencyConverter';
 import SpecificStock from './components/SpecificStock';
 import { NavigationContainer } from '@react-navigation/native';
@@ -18,8 +18,8 @@ const Stack = createStackNavigator();
 const StocksNavigator = () => (
   <Stack.Navigator>
     <Stack.Screen
-      name='StocksNavigator'
-      component={Stocks}
+      name='Coins'
+      component={Coins}
       options={{ headerShown: true }}
     />
     <Stack.Screen
@@ -86,11 +86,12 @@ export default function App() {
             }}
           />
           <Tab.Screen
-            name='Stocks'
+            name='Default'
             component={StocksNavigator}
             options={{
               tabBarLabelPosition: 'below-icon',
               headerShown: false,
+              title: 'Coins',
               tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='bulletin-board' size={25} color={color} />),
             }}
           />
