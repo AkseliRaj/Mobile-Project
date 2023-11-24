@@ -115,7 +115,6 @@ export default function App() {
           <Tab.Screen
             name='Currency converter'
             component={CurrencyConverter}
-            listeners={resetTabStacksOnBlur}
             options={{
               tabBarLabelPosition: 'below-icon',
               tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='currency-eur' size={25} color={color} />),
