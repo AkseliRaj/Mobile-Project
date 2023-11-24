@@ -3,7 +3,7 @@ import Loading from './components/Loading';
 import Coins from './components/Coins';
 import CurrencyConverter from './components/CurrencyConverter';
 import SpecificCoin from './components/SpecificCoin';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -45,6 +45,21 @@ const HomeNavigator = () => (
   </Stack.Navigator>
 );
 
+/**
+ * resets tabs with stacknavigators to the first route when navigation to another tab
+ */
+const resetTabStacksOnBlur = ({navigation}) => ({
+  blur: () => {
+    const state = navigation.getState();
+    state.routes.forEach((route, tabIndex) => {
+      if (state?.index !== tabIndex && route.state?.index > 0) {
+        navigation.dispatch(StackActions.popToTop());
+      }
+    });
+  },
+});
+
+
 export default function App() {
 
   const [isloading, setIsLoading] = useState(true);
@@ -78,6 +93,7 @@ export default function App() {
           <Tab.Screen
             name='Name'
             component={HomeNavigator}
+            listeners={resetTabStacksOnBlur}
             options={{
               tabBarLabelPosition: 'below-icon',
               headerShown: false,
@@ -88,6 +104,7 @@ export default function App() {
           <Tab.Screen
             name='Default'
             component={StocksNavigator}
+            listeners={resetTabStacksOnBlur}
             options={{
               tabBarLabelPosition: 'below-icon',
               headerShown: false,

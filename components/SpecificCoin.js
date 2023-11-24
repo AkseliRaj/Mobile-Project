@@ -18,6 +18,7 @@ const SpecificCoin = ({ navigation, route }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const navigateToCurrencyConverter = () => {
+    navigation.popToTop();
     navigation.navigate('Currency converter',coin.symbol);
   };
 
