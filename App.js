@@ -48,7 +48,7 @@ const HomeNavigator = () => (
 /**
  * resets tabs with stacknavigators to the first route when navigation to another tab
  */
-const resetTabStacksOnBlur = ({navigation}) => ({
+const resetTabStacksOnBlur = ({ navigation }) => ({
   blur: () => {
     const state = navigation.getState();
     state.routes.forEach((route, tabIndex) => {
