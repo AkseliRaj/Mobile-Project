@@ -51,6 +51,10 @@ const searchCoins = async () => {
     setSearching(true) 
 }
 
+const clearSearch = () => {
+    setSearch('')
+    setSearching(false)
+}
 
 
 
@@ -64,7 +68,7 @@ const searchCoins = async () => {
                 value={search}
                 onChangeText={(text) => setSearch(text)}
             />
-            {!searching ? <AntDesign onPress={() => searchCoins()} name="search1" size={20} color="black" style={styles.searchButton}/> : <AntDesign onPress={() => {setSearching(false)}} name="close" size={20} color="black" style={styles.searchButton}/> }
+            {!searching ? <AntDesign onPress={() => searchCoins()} name="search1" size={20} color="black" style={styles.searchButton}/> : <AntDesign onPress={() => clearSearch()} name="close" size={20} color="black" style={styles.searchButton}/> }
         </View>
         <ScrollView>
             <DataTable>
