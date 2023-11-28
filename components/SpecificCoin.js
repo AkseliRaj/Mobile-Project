@@ -5,7 +5,6 @@ import { LineChart } from "react-native-chart-kit";
 import { useEffect, useState } from 'react';
 import { getCoinDetails } from '../api/Functions';
 import Loading from './Loading';
-import { ScrollView } from 'react-native-gesture-handler';
 
 // Hard coded uuid for testing purposes
 // const UUID = 'Qwsogvtv82FCd'
@@ -17,22 +16,67 @@ const SpecificCoin = ({ navigation, route }) => {
   const [coin, setCoin] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
+  const timePeriods = ["1h", "3h", "3m", "1y", "3y"];
+  const [selectedTimePeriod, setSelectedTimePeriod] = useState(null)
+  const [timeframe, setTimeframe] = useState([])
+  
+
   const navigateToCurrencyConverter = () => {
     navigation.popToTop();
     navigation.navigate('Currency converter',coin.symbol);
   };
 
   // Getting data from the API
+  const fetchCoinDetails = async (timePeriod) => {
+    setSelectedTimePeriod(timePeriod)
+
+    let result = await getCoinDetails(uuid,timePeriod);
+    const formattedSparkline = result.sparkline.map(dataPoint => parseFloat(dataPoint));
+    
+    result.sparkline = formattedSparkline;
+    setCoin(result);
+    setIsLoading(false);
+  };
 
   useEffect(() => {
-    const fetchCoinDetails = async () => {
-      const result = await getCoinDetails(uuid);
-      setCoin(result);
-      setIsLoading(false);
-    };
-
-    fetchCoinDetails();
+    fetchCoinDetails("1y");
   }, [uuid]);
+
+  // Triggers everytime time period changes
+  useEffect(() => {
+    changeTimeframe()
+  }, [selectedTimePeriod]);
+
+  const changeTimeframe = () => {
+
+    switch (selectedTimePeriod) {
+      case "1y":
+        setTimeframe(generateShortenedDates(12))
+        break
+
+      case "3m":
+        setTimeframe(generateShortenedDates(3))
+        break
+
+      default:
+        setTimeframe(["WIP"])
+        break
+    }
+
+  }
+
+  const generateShortenedDates = (numberOfMonths) => {
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    const date = new Date()
+    const shortenedDates = []
+  
+    for (let i = 0; i < numberOfMonths; i++) {
+      shortenedDates.push(`${months[date.getMonth()]}`)
+      date.setMonth(date.getMonth() - 1)
+    }
+    console.log(shortenedDates)
+    return shortenedDates.reverse()
+  }
 
   if (isLoading) {
     return (
@@ -43,33 +87,36 @@ const SpecificCoin = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.timePeriodContainer}>
+        {timePeriods.map((item,i) => (
+          <Pressable
+            key={item + i}
+            onPress={() => fetchCoinDetails(item)}
+          >
+            <Text style={{color: selectedTimePeriod === item? "#004CFF" : "black"}}>{item}</Text>
+          </Pressable>
+        ))
+        }
+      </View>
       <View style={styles.chartContainer}>
         <LineChart
           data={{
-            labels: ["January", "February", "March", "April", "May", "June"],
+            labels: timeframe,
             datasets: [
               {
-                data: [
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100
-                ]
+                data: coin.sparkline
               }
             ]
           }}
           width={Dimensions.get("window").width - 40} // from react-native
           height={250}
-          yAxisLabel="$"
-          yAxisSuffix="k"
+          yAxisSuffix="$"
           yAxisInterval={1} // optional, defaults to 1
           chartConfig={{
             backgroundColor: "#ffffff",
             backgroundGradientFrom: "#ffffff",
             backgroundGradientTo: "#ffffff",
-            decimalPlaces: 2, // optional, defaults to 2dp
+            decimalPlaces: 0, // optional, defaults to 2dp
             color: (opacity = 1) => `rgba(0, 76, 255, ${opacity})`,
             labelColor: (opacity = 1) => `rgba(109, 109, 109, ${opacity})`,
             style: {
@@ -129,6 +176,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff',
+  },
+
+  timePeriodContainer: {
+    padding: 10,
+    flexDirection: "row",
+    gap: 15
   },
 
   dataContainer: {
