@@ -25,18 +25,19 @@ const CurrencyConverter = ({ route }) => {
     }, [])
 
     useEffect(() => {
-        setCryptoInput(route?.params)
+        if(route?.params)
+            setCryptoInput(route?.params)
     }, [route?.params])
 
- 
+
     const findUuidByTitle = (array, nameToFind) => {
         const foundObject = array.find(obj => obj.title === nameToFind)
         return foundObject ? foundObject.uuid : null
     }
 
     const convertCurrency = async () => {
-        const currencyId = findUuidByTitle(currencies, currencyInput)
         const cryptoId = findUuidByTitle(cryptos, cryptoInput)
+        const currencyId = findUuidByTitle(currencies, currencyInput)
 
         const convertingParameters = isSwapped
             ? `${currencyId}?referenceCurrencyUuid=${cryptoId}`
@@ -63,7 +64,6 @@ const CurrencyConverter = ({ route }) => {
             image: currency.iconUrl,
             uuid: currency.uuid,
         }))
-
         setCurrencies(currencyObjects)
 
     }
@@ -82,7 +82,6 @@ const CurrencyConverter = ({ route }) => {
             image: crypto.iconUrl,
             uuid: crypto.uuid,
         }))
-
         setCryptos(cryptoObjects)
     }
 
