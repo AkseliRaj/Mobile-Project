@@ -48,8 +48,7 @@ function changeFilter() {
 const searchCoins = async () => {  
     const result = await searchCoin(search);
     setSearchItems(result);
-    setSearching(true)
-    console.log(result)  
+    setSearching(true) 
 }
 
 
