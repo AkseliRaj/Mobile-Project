@@ -28,7 +28,7 @@ export const getCoins = async () => {
 
 // Calls the API to get the FIAT currencies
 
-export const getFiatCurrencies = async (limit) => {
+export const getFiatCurrencies = async () => {
     try {
         const response = await fetch(URL + 'reference-currencies', {
             method: 'GET',
@@ -45,17 +45,24 @@ export const getFiatCurrencies = async (limit) => {
 
 // Calls the API to get the coin details for a specific coin. Using uuid as a parameter. So remember to pass the uuid of the coin when navigating to specific coin details page.
 
-export const getCoinDetails = async (id) => {
+export const getCoinDetails = async (id, timePeriod) => {
     try {
-        const response = await fetch(URL + 'coin/' + id, {
+        let uri = URL + 'coin/' + id;
+
+        // Add timePeriod to the URI only if it is provided
+        if (timePeriod) {
+            uri += "?timePeriod=" + timePeriod;
+        }
+
+        const response = await fetch(uri, {
             method: 'GET',
             headers: headers
         });
+
         const result = await response.json();
 
-        return result.data.coin
-    }
-    catch (error) {
+        return result.data.coin;
+    } catch (error) {
         console.error('Error fetching data:', error);
     }
 }

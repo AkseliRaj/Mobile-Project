@@ -10,7 +10,6 @@ const ConversionResult = ({ isSwapped, isConverted, amount, crypto, currency, re
     useEffect(() => {
 
         const amountOfDigits = Math.abs(result).toString() + Math.abs(amount).toString()
-        console.log(amountOfDigits.length)
         setFlexDirection(
             amountOfDigits.length > 20
                 ? "column"
@@ -26,7 +25,7 @@ const ConversionResult = ({ isSwapped, isConverted, amount, crypto, currency, re
                     : <Text style={{ fontSize: 18 }}>{amount} {crypto}</Text>
                 }
                 <Text style={{ fontSize: 18 }}>=</Text>
-                <Text style={{ fontSize: 20 }}>{result}</Text>
+                <Text style={{ fontSize: 18 }}>{result}</Text>
                 <Text style={{ fontSize: 18 }}>{isSwapped? crypto : currency}</Text>
             </View>
         }
