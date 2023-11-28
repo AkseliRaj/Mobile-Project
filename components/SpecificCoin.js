@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
   },
 
   dataWholeContainer: {
-    marginRight: 30,
+    width: 230,
   },
 
   coinNameHeading: {
