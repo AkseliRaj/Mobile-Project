@@ -31,9 +31,10 @@ const SpecificCoin = ({ navigation, route }) => {
     setSelectedTimePeriod(timePeriod)
 
     let result = await getCoinDetails(uuid, timePeriod);
-    const formattedSparkline = result.sparkline.map(dataPoint => parseFloat(dataPoint));
+    const convertedSparkline = result.sparkline.map(dataPoint => parseFloat(dataPoint));
+    const filteredSparkline = convertedSparkline.filter((dataPoint) => isNaN(dataPoint) === false)
 
-    result.sparkline = formattedSparkline;
+    result.sparkline = filteredSparkline;
     setCoin(result);
     setIsLoading(false);
   };
@@ -54,13 +55,13 @@ const SpecificCoin = ({ navigation, route }) => {
         setTimeframe(generateShortenedDates(12))
         break
 
-      case "3y": 
+      case "3y":
         const date = new Date()
         const currentYear = date.getFullYear()
 
         const years = []
 
-        for( let i = 0; i < 3; i++) {
+        for (let i = 0; i < 3; i++) {
           years.push(currentYear - i)
         }
         setTimeframe(years.reverse())
@@ -74,9 +75,9 @@ const SpecificCoin = ({ navigation, route }) => {
         setTimeframe(generateTimeframe(60, 10))
         break
 
-       case "3h":
-         setTimeframe(generateTimeframe(180, 30))
-         break
+      case "3h":
+        setTimeframe(generateTimeframe(180, 30))
+        break
     }
 
   }
@@ -102,7 +103,6 @@ const SpecificCoin = ({ navigation, route }) => {
       generatedTimeframe.push(currentTime)
       date.setMinutes(date.getMinutes() - step)
     }
-    console.log(generatedTimeframe)
     return generatedTimeframe.reverse()
   }
 
