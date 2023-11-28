@@ -3,7 +3,7 @@ import { Image } from 'expo-image'
 import React, { useEffect, useState } from 'react'
 import SelectDropdown from 'react-native-select-dropdown'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import { SvgUri } from 'react-native-svg'
+
 
 
 
@@ -18,7 +18,8 @@ const DropdownList = ({ currencyItems, setCurrency, placeholderValue, setAmount,
 
         setSelectedItemIcon(currentItem ? currencyItems[indexOfCurrent]?.image : currencyItems[0]?.image)
 
-    }, [currencyItems])
+    }, [currencyItems,currentItem])
+
 
     return (
         <View style={styles.container}>

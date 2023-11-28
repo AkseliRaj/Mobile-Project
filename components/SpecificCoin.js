@@ -19,20 +19,20 @@ const SpecificCoin = ({ navigation, route }) => {
   const timePeriods = ["1h", "3h", "3m", "1y", "3y"];
   const [selectedTimePeriod, setSelectedTimePeriod] = useState(null)
   const [timeframe, setTimeframe] = useState([])
-  
+
 
   const navigateToCurrencyConverter = () => {
     navigation.popToTop();
-    navigation.navigate('Currency converter',coin.symbol);
+    navigation.navigate('Currency converter', coin.symbol);
   };
 
   // Getting data from the API
   const fetchCoinDetails = async (timePeriod) => {
     setSelectedTimePeriod(timePeriod)
 
-    let result = await getCoinDetails(uuid,timePeriod);
+    let result = await getCoinDetails(uuid, timePeriod);
     const formattedSparkline = result.sparkline.map(dataPoint => parseFloat(dataPoint));
-    
+
     result.sparkline = formattedSparkline;
     setCoin(result);
     setIsLoading(false);
@@ -54,13 +54,29 @@ const SpecificCoin = ({ navigation, route }) => {
         setTimeframe(generateShortenedDates(12))
         break
 
+      case "3y": 
+        const date = new Date()
+        const currentYear = date.getFullYear()
+
+        const years = []
+
+        for( let i = 0; i < 3; i++) {
+          years.push(currentYear - i)
+        }
+        setTimeframe(years.reverse())
+        break
+
       case "3m":
         setTimeframe(generateShortenedDates(3))
         break
 
-      default:
-        setTimeframe(["WIP"])
+      case "1h":
+        setTimeframe(generateTimeframe(60, 10))
         break
+
+       case "3h":
+         setTimeframe(generateTimeframe(180, 30))
+         break
     }
 
   }
@@ -69,31 +85,43 @@ const SpecificCoin = ({ navigation, route }) => {
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     const date = new Date()
     const shortenedDates = []
-  
+
     for (let i = 0; i < numberOfMonths; i++) {
       shortenedDates.push(`${months[date.getMonth()]}`)
       date.setMonth(date.getMonth() - 1)
     }
-    console.log(shortenedDates)
     return shortenedDates.reverse()
+  }
+
+  const generateTimeframe = (minutes, step) => {
+    const date = new Date()
+    const generatedTimeframe = []
+
+    for (let i = 0; i <= minutes; i += step) {
+      const currentTime = `${date.getHours()}.${date.getMinutes()}`
+      generatedTimeframe.push(currentTime)
+      date.setMinutes(date.getMinutes() - step)
+    }
+    console.log(generatedTimeframe)
+    return generatedTimeframe.reverse()
   }
 
   if (isLoading) {
     return (
       <Loading />
-    );
+    )
   }
 
 
   return (
     <View style={styles.container}>
       <View style={styles.timePeriodContainer}>
-        {timePeriods.map((item,i) => (
+        {timePeriods.map((item, i) => (
           <Pressable
             key={item + i}
             onPress={() => fetchCoinDetails(item)}
           >
-            <Text style={{color: selectedTimePeriod === item? "#004CFF" : "black"}}>{item}</Text>
+            <Text style={{ color: selectedTimePeriod === item ? "#004CFF" : "black" }}>{item}</Text>
           </Pressable>
         ))
         }
@@ -123,7 +151,7 @@ const SpecificCoin = ({ navigation, route }) => {
               borderRadius: 16,
             },
             propsForDots: {
-              r: "6",
+              r: "4",
               strokeWidth: "2",
               stroke: "#004CFF"
             }
