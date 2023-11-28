@@ -59,3 +59,20 @@ export const getCoinDetails = async (id) => {
         console.error('Error fetching data:', error);
     }
 }
+
+// Search for a coin by name or symbol
+
+export const searchCoin = async (search) => {
+    try {
+        const response = await fetch(URL + 'search-suggestions?query=' + search, {
+            method: 'GET',
+            headers: headers
+        });
+        const result = await response.json();
+
+        return result.data.coins
+    }
+    catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
