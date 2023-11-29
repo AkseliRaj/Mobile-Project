@@ -25,8 +25,15 @@ const CurrencyConverter = ({ route }) => {
     }, [])
 
     useEffect(() => {
-        if(route?.params)
-            setCryptoInput(route?.params)
+        if (route?.params) {
+            const coin = route?.params
+            setCryptoInput(coin.symbol)
+            setCryptos([...cryptos, {
+                title: coin.symbol,
+                image: coin.iconUrl,
+                uuid: coin.uuid
+            }])
+        }
     }, [route?.params])
 
 
