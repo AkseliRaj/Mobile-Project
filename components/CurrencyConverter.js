@@ -27,12 +27,17 @@ const CurrencyConverter = ({ route }) => {
     useEffect(() => {
         if (route?.params) {
             const coin = route?.params
+            const hasCoin = cryptos.some(crypto => crypto.title === coin.symbol)
+
+            if (hasCoin === false) {
+                console.log("läpi")
+                setCryptos([...cryptos, {
+                    title: coin.symbol,
+                    image: coin.iconUrl,
+                    uuid: coin.uuid
+                }])
+            }
             setCryptoInput(coin.symbol)
-            setCryptos([...cryptos, {
-                title: coin.symbol,
-                image: coin.iconUrl,
-                uuid: coin.uuid
-            }])
         }
     }, [route?.params])
 
