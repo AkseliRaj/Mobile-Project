@@ -23,13 +23,12 @@ const SpecificCoin = ({ navigation, route }) => {
 
   const navigateToCurrencyConverter = () => {
     navigation.popToTop();
-    navigation.navigate('Currency converter', coin.symbol);
+    navigation.navigate('Currency converter', coin);
   };
 
   // Getting data from the API
   const fetchCoinDetails = async (timePeriod) => {
     setSelectedTimePeriod(timePeriod)
-
     let result = await getCoinDetails(uuid, timePeriod);
     const convertedSparkline = result.sparkline.map(dataPoint => parseFloat(dataPoint));
     const filteredSparkline = convertedSparkline.filter((dataPoint) => isNaN(dataPoint) === false)
