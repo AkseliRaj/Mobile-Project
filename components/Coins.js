@@ -72,30 +72,26 @@ const clearSearch = () => {
         </View>
         <ScrollView>
             <DataTable>
-                    <DataTable.Header>
-                        <DataTable.Title>
-                            <Text style={styles.tableTittle}>Name</Text>
-                        </DataTable.Title>
-                        <DataTable.Title numeric>
-                            <Text style={styles.tableTittle}>Price</Text>
-                            {!searching && (
-                                <>
+                {!searching && (
+                    <>
+                        <DataTable.Header>
+                            <DataTable.Title>
+                                <Text style={styles.tableTittle}>Name</Text>
+                            </DataTable.Title>
+                            <DataTable.Title numeric>
+                                <Text style={styles.tableTittle}>Price</Text>
                                     <AntDesign onPress={priceFilter} name="caretup" size={8} color="black" />
                                     <AntDesign onPress={priceFilter} name="caretdown" size={8} color="black" />
-                                </>
-                            )}
-                        </DataTable.Title>
-                        <DataTable.Title numeric>
-                            <Text style={styles.tableTittle}>Change</Text>
-                            {!searching && (
-                                <>
+                            </DataTable.Title>
+                            <DataTable.Title numeric>
+                                <Text style={styles.tableTittle}>Change</Text>
                                     <AntDesign onPress={changeFilter} name="caretup" size={8} color="black" />
                                     <AntDesign onPress={changeFilter} name="caretdown" size={8} color="black" />
-                                </>
-                            )}
-                        </DataTable.Title>
-                        <DataTable.Title></DataTable.Title>
-                    </DataTable.Header>
+                            </DataTable.Title>
+                            <DataTable.Title></DataTable.Title>
+                        </DataTable.Header>
+                    </>
+                )}
                     
                     {!searching ? items.map((item, index) => (
                         <DataTable.Row key={index}>
