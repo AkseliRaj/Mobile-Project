@@ -1,7 +1,6 @@
 
 import React from 'react';
-import { View, Text, Button, Pressable, Image, StyleSheet, ScrollView, TextInput } from 'react-native';
-
+import { View, Text, Button, Pressable, Image, StyleSheet, ScrollView, TextInput, Keyboard } from 'react-native';
 import { getCoins, searchCoin } from "../api/Functions";
 import { DataTable } from "react-native-paper";
 import { AntDesign } from '@expo/vector-icons';
@@ -45,8 +44,8 @@ function changeFilter() {
 
 //functions for searching
 
-const searchCoins = async () => {  
-    const result = await searchCoin(search);
+const searchCoins = async (searchQuery) => {  
+    const result = await searchCoin(searchQuery);
     setSearchItems(result);
     setSearching(true) 
 }
@@ -54,6 +53,7 @@ const searchCoins = async () => {
 const clearSearch = () => {
     setSearch('')
     setSearching(false)
+    Keyboard.dismiss()
 }
 
 
@@ -66,7 +66,7 @@ const clearSearch = () => {
                 style={styles.searchInput}
                 placeholder="Search coins..."
                 value={search}
-                onChangeText={(text) => setSearch(text)}
+                onChangeText={(text) => (searchCoins(text),setSearch(text))}
             />
             {!searching ? <AntDesign onPress={() => searchCoins()} name="search1" size={20} color="black" style={styles.searchButton}/> : <AntDesign onPress={() => clearSearch()} name="close" size={20} color="black" style={styles.searchButton}/> }
         </View>
@@ -78,13 +78,21 @@ const clearSearch = () => {
                         </DataTable.Title>
                         <DataTable.Title numeric>
                             <Text style={styles.tableTittle}>Price</Text>
-                            <AntDesign onPress={priceFilter} name="caretup" size={8} color="black" />
-                            <AntDesign onPress={priceFilter} name="caretdown" size={8} color="black" />
+                            {!searching && (
+                                <>
+                                    <AntDesign onPress={priceFilter} name="caretup" size={8} color="black" />
+                                    <AntDesign onPress={priceFilter} name="caretdown" size={8} color="black" />
+                                </>
+                            )}
                         </DataTable.Title>
                         <DataTable.Title numeric>
                             <Text style={styles.tableTittle}>Change</Text>
-                            <AntDesign onPress={changeFilter} name="caretup" size={8} color="black" />
-                            <AntDesign onPress={changeFilter} name="caretdown" size={8} color="black" />
+                            {!searching && (
+                                <>
+                                    <AntDesign onPress={changeFilter} name="caretup" size={8} color="black" />
+                                    <AntDesign onPress={changeFilter} name="caretdown" size={8} color="black" />
+                                </>
+                            )}
                         </DataTable.Title>
                         <DataTable.Title></DataTable.Title>
                     </DataTable.Header>
