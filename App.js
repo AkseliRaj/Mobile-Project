@@ -109,7 +109,7 @@ export default function App() {
               tabBarLabelPosition: 'below-icon',
               headerShown: false,
               title: 'Coins',
-              tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='bulletin-board' size={25} color={color} />),
+              tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='hand-coin' size={25} color={color} />),
             }}
           />
           <Tab.Screen
@@ -117,7 +117,7 @@ export default function App() {
             component={CurrencyConverter}
             options={{
               tabBarLabelPosition: 'below-icon',
-              tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='currency-eur' size={25} color={color} />),
+              tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='calculator-variant' size={25} color={color} />),
             }}
           />
         </Tab.Navigator>
