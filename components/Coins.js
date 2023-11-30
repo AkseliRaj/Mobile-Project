@@ -60,7 +60,7 @@ const clearSearch = () => {
 
       
   return (
-    <View>
+    <View style={styles.container}>
         <View style={styles.searchBar}>
             <TextInput
                 style={styles.searchInput}
