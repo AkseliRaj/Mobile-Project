@@ -111,6 +111,17 @@ const SpecificCoin = ({ navigation, route }) => {
     )
   }
 
+  const formatPrice = (price) => {
+    const parsedPrice = parseFloat(price)
+    if (Number(parsedPrice) >= 1) {
+      return parsedPrice.toFixed(2)
+    } else {
+      const parts = price.split(".")
+      const firstNonZeroIndex = parts[1].split("").findIndex((digit) => digit !== "0")
+      return parsedPrice.toFixed(firstNonZeroIndex + 2)
+    }
+  }
+
 
   return (
     <View style={styles.container}>
@@ -172,19 +183,19 @@ const SpecificCoin = ({ navigation, route }) => {
         </View>
         <View style={styles.dataContainer}>
           <Text style={styles.dataHeading}>Price</Text>
-          <Text style={styles.dataText}>{parseFloat(coin.price).toFixed(2)} $</Text>
+          <Text style={styles.dataText}>{formatPrice(coin.price)} $</Text>
         </View>
         <View style={styles.dataContainer}>
           <Text style={styles.dataHeading}>Volume 24h</Text>
-          <Text style={styles.dataText}>{coin['24hVolume']} $</Text>
+          <Text style={styles.dataText}>{Number(coin['24hVolume']).toLocaleString()} $</Text>
         </View>
         <View style={styles.dataContainer}>
           <Text style={styles.dataHeading}>Circulating supply</Text>
-          <Text style={styles.dataText}>{coin.supply.circulating} Coins</Text>
+          <Text style={styles.dataText}>{Number(coin.supply.circulating).toLocaleString()} Coins</Text>
         </View>
         <View>
           <Text style={styles.dataHeading}>Market Cap</Text>
-          <Text style={styles.dataText}>{coin.marketCap} $</Text>
+          <Text style={styles.dataText}>{Number(coin.marketCap).toLocaleString()} $</Text>
         </View>
       </View>
 
