@@ -1,12 +1,10 @@
-
 import React from 'react';
-import { View, Text, Button, Pressable, Image, StyleSheet, ScrollView, TextInput, Keyboard } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView, TextInput, Keyboard } from 'react-native';
 import { getCoins, searchCoin } from "../api/Functions";
 import { DataTable } from "react-native-paper";
 import { AntDesign } from '@expo/vector-icons';
 import { useState, useEffect } from 'react';
 import { Image as ExpoImage } from 'expo-image';
-import { useNavigation } from '@react-navigation/native';
 
 
 const Coins = ({ navigation }) => {

@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { useEffect, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
-
 import Constants from 'expo-constants'
 import DropdownList from './DropdownList'
 import ConvertButton from './ConvertButton'

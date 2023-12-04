@@ -5,7 +5,6 @@ import { AntDesign } from '@expo/vector-icons';
 import { Image as ExpoImage } from 'expo-image';
 import logo from '../assets/OnlyLogo.png'
 import { getCoins } from "../api/Functions";
-import { useNavigation } from '@react-navigation/native';
 
 
 export default function Home({ navigation }) {
