@@ -109,7 +109,7 @@ export default function App() {
               tabBarLabelPosition: 'below-icon',
               headerShown: false,
               title: 'Coins',
-              tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='hand-coin' size={25} color={color} />),
+              tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='magnify' size={25} color={color} />),
             }}
           />
           <Tab.Screen
