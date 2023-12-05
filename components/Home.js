@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useState, useEffect } from 'react';
 import { DataTable } from "react-native-paper";
 import { AntDesign } from '@expo/vector-icons';
@@ -39,7 +39,7 @@ export default function Home({ navigation }) {
     }
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <Image
                 style={styles.logo}
                 source={logo}
@@ -49,7 +49,7 @@ export default function Home({ navigation }) {
                 <Text style={styles.header}>Welcome to Cryptex</Text>
                 <Text style={styles.text}>Stay up-to-date with the latest market trends and explore a wide range of currencies.</Text>
                 <Text style={styles.text}>Make planning for your next investment convenient with the intuitive currency converter.</Text>
-                <Text style={styles.text}>Your trading journey starts <Text style={styles.bold}>here.</Text></Text>
+                <Text style={styles.text}>Your gateway to market insights begins <Text style={styles.bold}>here.</Text></Text>
             </View>
 
 
@@ -102,7 +102,7 @@ export default function Home({ navigation }) {
                 ))}
 
             </DataTable>
-        </View>
+        </ScrollView>
     )
 }
 
