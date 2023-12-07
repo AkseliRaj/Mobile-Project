@@ -5,8 +5,8 @@ import { DataTable } from "react-native-paper";
 import { AntDesign } from '@expo/vector-icons';
 import { useState, useEffect, useRef } from 'react';
 import { Image as ExpoImage } from 'expo-image';
-import { data } from '../style/styles'
 import { useScrollToTop } from '@react-navigation/native';
+import { data } from '../style/styles'
 
 
 const Coins = ({ navigation }) => {
