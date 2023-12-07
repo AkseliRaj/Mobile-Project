@@ -1,14 +1,15 @@
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { useState, useEffect } from 'react';
 import { DataTable } from "react-native-paper";
 import { AntDesign } from '@expo/vector-icons';
 import { Image as ExpoImage } from 'expo-image';
-import logo from '../assets/OnlyLogo.png'
+import logo from '../assets/OnlyLogo.png';
 import { getCoins } from "../api/Functions";
+import { data } from '../style/styles'
 
 
 export default function Home({ navigation }) {
-    
+
 
     const [items, setItems] = useState([])
     const [filter, setFilter] = useState(true)
@@ -39,33 +40,33 @@ export default function Home({ navigation }) {
     }
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={data.container}>
             <Image
-                style={styles.logo}
+                style={data.logo}
                 source={logo}
             />
 
-            <View style={styles.article}>
-                <Text style={styles.header}>Welcome to Cryptex</Text>
-                <Text style={styles.text}>Stay up-to-date with the latest market trends and explore a wide range of currencies.</Text>
-                <Text style={styles.text}>Make planning for your next investment convenient with the intuitive currency converter.</Text>
-                <Text style={styles.text}>Your gateway to market insights begins <Text style={styles.bold}>here.</Text></Text>
+            <View style={data.article}>
+                <Text style={data.header}>Welcome to Cryptex</Text>
+                <Text style={data.text}>Stay up-to-date with the latest market trends and explore a wide range of currencies.</Text>
+                <Text style={data.text}>Make planning for your next investment convenient with the intuitive currency converter.</Text>
+                <Text style={data.text}>Your gateway to market insights begins <Text style={data.bold}>here.</Text></Text>
             </View>
 
 
-            <Text style={styles.subHeader}>Stocks, with the biggest <Text style={styles.bold}>price:</Text></Text>
+            <Text style={data.subHeader}>Stocks, with the biggest <Text style={data.bold}>price:</Text></Text>
             <DataTable>
                 <DataTable.Header>
                     <DataTable.Title>
-                        <Text style={styles.tableTittle}>Name</Text>
+                        <Text style={data.tableTittle}>Name</Text>
                     </DataTable.Title>
                     <DataTable.Title onPress={priceFilter} numeric>
-                        <Text style={styles.tableTittle}>Price</Text>
+                        <Text style={data.tableTittle}>Price</Text>
                         <AntDesign name="caretup" size={8} color="black" />
                         <AntDesign name="caretdown" size={8} color="black" />
                     </DataTable.Title>
                     <DataTable.Title onPress={changeFilter} numeric>
-                        <Text style={styles.tableTittle}>Change</Text>
+                        <Text style={data.tableTittle}>Change</Text>
                         <AntDesign name="caretup" size={8} color="black" />
                         <AntDesign name="caretdown" size={8} color="black" />
                     </DataTable.Title>
@@ -75,27 +76,27 @@ export default function Home({ navigation }) {
                 {items.slice(0, 3).map((item, index) => (
                     <DataTable.Row key={index}>
                         <DataTable.Cell>
-                            <View style={styles.tableRow}>
+                            <View style={data.tableRow}>
                                 <ExpoImage
-                                    style={styles.tableIcon}
+                                    style={data.tableIcon}
                                     source={{ uri: item.iconUrl }}
                                     contentFit="contain"
                                 />
                                 <View>
-                                    <Text style={styles.tableText}>{item.name}</Text>
-                                    <Text style={styles.tableTextColor}>{item.symbol}</Text>
+                                    <Text style={data.tableText}>{item.name}</Text>
+                                    <Text style={data.tableTextColor}>{item.symbol}</Text>
                                 </View>
                             </View>
                         </DataTable.Cell>
                         <DataTable.Cell numeric>
-                            <Text style={styles.tableText}>${parseFloat(item.price).toFixed(2)}</Text>
+                            <Text style={data.tableText}>${parseFloat(item.price).toFixed(2)}</Text>
                         </DataTable.Cell>
                         <DataTable.Cell numeric>
-                            <Text style={styles.tableText}>{item.change}</Text>
+                            <Text style={data.tableText}>{item.change}</Text>
                         </DataTable.Cell>
-                        <DataTable.Cell style={styles.tableButtonCell}>
-                            <Pressable style={styles.tableButton} onPress={() => navigation.navigate('Specific coin', { uuid: item.uuid })}>
-                                <Text style={styles.tableButtonText}>Open</Text>
+                        <DataTable.Cell style={data.tableButtonCell}>
+                            <Pressable style={data.tableButton} onPress={() => navigation.navigate('Specific coin', { uuid: item.uuid })}>
+                                <Text style={data.tableButtonText}>Open</Text>
                             </Pressable>
                         </DataTable.Cell>
                     </DataTable.Row>
@@ -106,85 +107,3 @@ export default function Home({ navigation }) {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff'
-    },
-
-    logo: {
-        height: 120,
-        width: 127,
-        resizeMode: 'contain',
-        alignSelf: 'flex-start'
-    },
-
-    article: {
-        gap: 12,
-        marginLeft: 14,
-        marginRight: 30,
-        marginBottom: 20
-    },
-
-    header: {
-        fontSize: 20,
-        fontWeight: "bold"
-    },
-
-    text: {
-        fontSize: 13
-    },
-
-    bold: {
-        fontWeight: "bold"
-    },
-
-    subHeader: {
-        fontSize: 16,
-        marginLeft: 14,
-        marginBottom: 10
-    },
-
-    tableTittle: {
-        color: "black"
-    },
-
-    tableRow: {
-        flexDirection: "row",
-        alignItems: "center"
-    },
-
-    tableIcon: {
-        width: 24,
-        height: 24,
-        marginRight: 8
-    },
-
-    tableText: {
-        fontSize: 11,
-    },
-
-    tableTextColor: {
-        fontSize: 11,
-        color: "#B3B3B3" 
-    },
-
-    tableButtonCell: {
-        justifyContent: "center" 
-    },
-
-    tableButton: {
-        backgroundColor: '#004CFF', 
-        padding: 3, 
-        borderRadius: 20
-    },
-
-    tableButtonText: {
-        fontSize: 11, 
-        width: 40, 
-        height: 17, 
-        textAlign: "center", 
-        color: "white"
-    }
-
-})

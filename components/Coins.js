@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, TextInput, Keyboard } from 'react-native';
+import { View, Text, Pressable, ScrollView, TextInput, Keyboard } from 'react-native';
 import { getCoins, searchCoin } from "../api/Functions";
 import { DataTable } from "react-native-paper";
 import { AntDesign } from '@expo/vector-icons';
 import { useState, useEffect } from 'react';
 import { Image as ExpoImage } from 'expo-image';
+import { data } from '../style/styles'
 
 
 const Coins = ({ navigation }) => {
@@ -54,19 +55,16 @@ const clearSearch = () => {
     Keyboard.dismiss()
 }
 
-
-
-      
   return (
-    <View style={styles.container}>
-        <View style={styles.searchBar}>
+    <View style={data.container}>
+        <View style={data.searchBar}>
             <TextInput
-                style={styles.searchInput}
+                style={data.searchInput}
                 placeholder="Search coins..."
                 value={search}
                 onChangeText={(text) => (searchCoins(text),setSearch(text))}
             />
-            {!searching ? <AntDesign onPress={() => searchCoins()} name="search1" size={20} color="black" style={styles.searchButton}/> : <AntDesign onPress={() => clearSearch()} name="close" size={20} color="black" style={styles.searchButton}/> }
+            {!searching ? <AntDesign onPress={() => searchCoins()} name="search1" size={20} color="black" style={data.searchButton}/> : <AntDesign onPress={() => clearSearch()} name="close" size={20} color="black" style={data.searchButton}/> }
         </View>
         <ScrollView>
             <DataTable>
@@ -74,15 +72,15 @@ const clearSearch = () => {
                     <>
                         <DataTable.Header>
                             <DataTable.Title>
-                                <Text style={styles.tableTittle}>Name</Text>
+                                <Text style={data.tableTittle}>Name</Text>
                             </DataTable.Title>
                             <DataTable.Title onPress={priceFilter} numeric>
-                                <Text style={styles.tableTittle}>Price</Text>
+                                <Text style={data.tableTittle}>Price</Text>
                                     <AntDesign name="caretup" size={8} color="black" />
                                     <AntDesign name="caretdown" size={8} color="black" />
                             </DataTable.Title>
                             <DataTable.Title onPress={changeFilter} numeric>
-                                <Text style={styles.tableTittle}>Change</Text>
+                                <Text style={data.tableTittle}>Change</Text>
                                     <AntDesign name="caretup" size={8} color="black" />
                                     <AntDesign name="caretdown" size={8} color="black" />
                             </DataTable.Title>
@@ -94,27 +92,27 @@ const clearSearch = () => {
                     {!searching ? items.map((item, index) => (
                         <DataTable.Row key={index}>
                             <DataTable.Cell>
-                                <View style={styles.tableRow}>
+                                <View style={data.tableRow}>
                                     <ExpoImage
-                                        style={styles.tableIcon}
+                                        style={data.tableIcon}
                                         source={{ uri: item.iconUrl }}
                                         contentFit="contain"
                                     />
                                     <View>
-                                        <Text style={styles.tableText}>{item.name}</Text>
-                                        <Text style={styles.tableTextColor}>{item.symbol}</Text>
+                                        <Text style={data.tableText}>{item.name}</Text>
+                                        <Text style={data.tableTextColor}>{item.symbol}</Text>
                                     </View>
                                 </View>
                             </DataTable.Cell>
                             <DataTable.Cell numeric>
-                                <Text style={styles.tableText}>${parseFloat(item.price).toFixed(2)}</Text>
+                                <Text style={data.tableText}>${parseFloat(item.price).toFixed(2)}</Text>
                             </DataTable.Cell>
                             <DataTable.Cell numeric>
-                                <Text style={styles.tableText}>{item.change}</Text>
+                                <Text style={data.tableText}>{item.change}</Text>
                             </DataTable.Cell>
-                            <DataTable.Cell style={styles.tableButtonCell}>
-                                <Pressable style={styles.tableButton} onPress={() => navigation.navigate('Specific coin', { uuid: item.uuid })}>
-                                    <Text style={styles.tableButtonText}>Open</Text>
+                            <DataTable.Cell style={data.tableButtonCell}>
+                                <Pressable style={data.tableButton} onPress={() => navigation.navigate('Specific coin', { uuid: item.uuid })}>
+                                    <Text style={data.tableButtonText}>Open</Text>
                                 </Pressable>
                             </DataTable.Cell>
                         </DataTable.Row>
@@ -123,27 +121,27 @@ const clearSearch = () => {
                     searchItems.map((item, index) => (
                         <DataTable.Row key={index}>
                             <DataTable.Cell>
-                                <View style={styles.tableRow}>
+                                <View style={data.tableRow}>
                                     <ExpoImage
-                                        style={styles.tableIcon}
+                                        style={data.tableIcon}
                                         source={{ uri: item.iconUrl }}
                                         contentFit="contain"
                                     />
                                     <View>
-                                        <Text style={styles.tableText}>{item.name}</Text>
-                                        <Text style={styles.tableTextColor}>{item.symbol}</Text>
+                                        <Text style={data.tableText}>{item.name}</Text>
+                                        <Text style={data.tableTextColor}>{item.symbol}</Text>
                                     </View>
                                 </View>
                             </DataTable.Cell>
                             <DataTable.Cell numeric>
-                                <Text style={styles.tableText}>${parseFloat(item.price).toFixed(2)}</Text>
+                                <Text style={data.tableText}>${parseFloat(item.price).toFixed(2)}</Text>
                             </DataTable.Cell>
                             <DataTable.Cell numeric>
-                                <Text style={styles.tableText}>{item.change}</Text>
+                                <Text style={data.tableText}>{item.change}</Text>
                             </DataTable.Cell>
-                            <DataTable.Cell style={styles.tableButtonCell}>
-                                <Pressable style={styles.tableButton} onPress={() => navigation.navigate('Specific coin', { uuid: item.uuid })}>
-                                    <Text style={styles.tableButtonText}>Open</Text>
+                            <DataTable.Cell style={data.tableButtonCell}>
+                                <Pressable style={data.tableButton} onPress={() => navigation.navigate('Specific coin', { uuid: item.uuid })}>
+                                    <Text style={data.tableButtonText}>Open</Text>
                                 </Pressable>
                             </DataTable.Cell>
                         </DataTable.Row>
@@ -155,111 +153,6 @@ const clearSearch = () => {
       </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-      flex: 1,
-      backgroundColor: '#fff'
-  },
-
-  logo: {
-      height: 120,
-      width: 127,
-      resizeMode: 'contain',
-      alignSelf: 'flex-start'
-  },
-
-  article: {
-      gap: 12,
-      marginLeft: 14,
-      marginRight: 30,
-      marginBottom: 20
-  },
-
-  header: {
-      fontSize: 20,
-      fontWeight: "bold"
-  },
-
-  text: {
-      fontSize: 13
-  },
-
-  bold: {
-      fontWeight: "bold"
-  },
-
-  subHeader: {
-      fontSize: 16,
-      marginLeft: 14,
-      marginBottom: 10
-  },
-
-  tableTittle: {
-      color: "black"
-  },
-
-  tableRow: {
-      flexDirection: "row",
-      alignItems: "center"
-  },
-
-  tableIcon: {
-      width: 24,
-      height: 24,
-      marginRight: 8
-  },
-
-  tableText: {
-      fontSize: 11,
-  },
-
-  tableTextColor: {
-      fontSize: 11,
-      color: "#B3B3B3" 
-  },
-
-  tableButtonCell: {
-      justifyContent: "center" 
-  },
-
-  tableButton: {
-      backgroundColor: '#004CFF', 
-      padding: 3, 
-      borderRadius: 20
-  },
-
-  tableButtonText: {
-      fontSize: 11, 
-      width: 40, 
-      height: 17, 
-      textAlign: "center", 
-      color: "white"
-  },
-
-    searchBar: {
-        backgroundColor: '#E7E7E7',
-        height: 40,
-        borderRadius: 20,
-        margin: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row'
-    },
-
-    searchInput: {
-        fontSize: 15,
-        color: '#000',
-        width: '85%',
-        height: '100%',
-        marginLeft: 10
-    },
-
-    searchButton: {
-        marginRight: 10,
-    }
-
-})
 
 export default Coins;
 

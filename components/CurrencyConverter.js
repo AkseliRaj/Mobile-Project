@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { Text, View, TouchableOpacity } from 'react-native'
 import { useEffect, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import Constants from 'expo-constants'
@@ -6,6 +6,7 @@ import DropdownList from './DropdownList'
 import ConvertButton from './ConvertButton'
 import ConversionResult from './ConversionResult'
 import { getCoins, getFiatCurrencies, getCoinDetails } from '../api/Functions'
+import { converter } from '../style/styles'
 
 const CurrencyConverter = ({ route }) => {
     const [cryptoInput, setCryptoInput] = useState("BTC")
@@ -101,10 +102,10 @@ const CurrencyConverter = ({ route }) => {
     }
 
     return (
-        <View style={[styles.container, { paddingTop: Constants.statusBarHeight }]}>
-            <Text style={styles.header}>Currency converter</Text>
-            <Text style={styles.subHeader}>Convert {isSwapped ? currencyInput : cryptoInput} to {isSwapped ? cryptoInput : currencyInput}</Text>
-            <View style={styles.converterContainer}>
+        <View style={[converter.container, { paddingTop: Constants.statusBarHeight }]}>
+            <Text style={converter.header}>Currency converter</Text>
+            <Text style={converter.subHeader}>Convert {isSwapped ? currencyInput : cryptoInput} to {isSwapped ? cryptoInput : currencyInput}</Text>
+            <View style={converter.converterContainer}>
                 <DropdownList
                     currencyItems={isSwapped ? currencies : cryptos}
                     setCurrency={isSwapped ? setCurrencyInput : setCryptoInput}
@@ -114,7 +115,7 @@ const CurrencyConverter = ({ route }) => {
                     setIsConverted={setIsConverted}
                 />
                 <TouchableOpacity
-                    style={styles.swapButton}
+                    style={converter.swapButton}
                     onPress={swapTextInput}>
                     <Ionicons name="md-swap-vertical" size={24} color="black" />
                 </TouchableOpacity>
@@ -141,52 +142,4 @@ const CurrencyConverter = ({ route }) => {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: 20,
-        backgroundColor: "white",
-    },
-    header: {
-        fontSize: 25,
-        paddingTop: 20,
-        fontWeight: "bold"
-    },
-    subHeader: {
-        marginTop: 10,
-        fontSize: 15
-    },
-    converterContainer: {
-        marginTop: 20,
-        width: "100%",
-        height: 400,
-        borderRadius: 10,
-        alignItems: "center",
-        paddingHorizontal: 20
-    },
-    cryptoInput: {
-        borderColor: "black",
-        borderColor: "#7393B3",
-        borderWidth: 2,
-        borderRadius: 10,
-        backgroundColor: "white",
-        width: "100%",
-        height: 45,
-        marginVertical: 30,
-        paddingHorizontal: 20
-    },
-    list: {
-        borderColor: "#7393B3",
-        borderWidth: 2,
-        borderRadius: 10,
-        backgroundColor: "white",
-        width: 300,
-        marginBottom: 20
-    },
-    swapButton: {
-        margin: 15
-    }
-})
 export default CurrencyConverter
