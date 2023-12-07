@@ -3,9 +3,8 @@ import { View, Text, Pressable, ScrollView, TextInput, Keyboard } from 'react-na
 import { getCoins, searchCoin } from "../api/Functions";
 import { DataTable } from "react-native-paper";
 import { AntDesign } from '@expo/vector-icons';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Image as ExpoImage } from 'expo-image';
-import { data } from '../style/styles'
 
 
 const Coins = ({ navigation }) => {
@@ -15,6 +14,7 @@ const Coins = ({ navigation }) => {
     const [search, setSearch] = useState('')
     const [searchItems, setSearchItems] = useState([])
     const [searching, setSearching] = useState(false)
+    const ref = useRef(null);
 
   useEffect(() => {
     const fetchCoins = async () => {
@@ -55,6 +55,9 @@ const clearSearch = () => {
     Keyboard.dismiss()
 }
 
+
+
+      
   return (
     <View style={data.container}>
         <View style={data.searchBar}>
@@ -66,7 +69,7 @@ const clearSearch = () => {
             />
             {!searching ? <AntDesign onPress={() => searchCoins()} name="search1" size={20} color="black" style={data.searchButton}/> : <AntDesign onPress={() => clearSearch()} name="close" size={20} color="black" style={data.searchButton}/> }
         </View>
-        <ScrollView>
+        <ScrollView ref={ref}>
             <DataTable>
                 {!searching && (
                     <>
