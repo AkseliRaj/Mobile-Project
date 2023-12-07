@@ -99,11 +99,11 @@ const data = StyleSheet.create({
   searchBar: {
     backgroundColor: '#E7E7E7',
     height: 40,
-    borderRadius: 20,
+    borderRadius: 10,
     margin: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
 
   searchInput: {
@@ -111,11 +111,16 @@ const data = StyleSheet.create({
     color: '#000',
     width: '85%',
     height: '100%',
+    marginLeft: 10,
+    flex: 1
+  },
+
+  searchIcon: {
     marginLeft: 10
   },
 
-  searchButton: {
-    marginRight: 10,
+  closeIcon: {
+    marginRight: 14
   }
 
 })

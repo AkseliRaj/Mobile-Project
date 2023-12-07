@@ -62,13 +62,18 @@ const Coins = ({ navigation }) => {
     return (
         <View style={data.container}>
             <View style={data.searchBar}>
+                <AntDesign name="search1" size={20} color="black" style={data.searchIcon} />
                 <TextInput
                     style={data.searchInput}
                     placeholder="Search coins..."
+                    keyboardType='default'
+                    returnKeyType='search'
                     value={search}
                     onChangeText={(text) => (searchCoins(text), setSearch(text))}
                 />
-                {!searching ? <AntDesign onPress={() => searchCoins()} name="search1" size={20} color="black" style={data.searchButton} /> : <AntDesign onPress={() => clearSearch()} name="close" size={20} color="black" style={data.searchButton} />}
+                {searching &&
+                    <AntDesign onPress={() => clearSearch()} name="close" size={13} color="black" style={data.closeIcon} />
+                }
             </View>
             <ScrollView ref={ref}>
                 <DataTable>
