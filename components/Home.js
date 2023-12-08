@@ -1,7 +1,7 @@
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { useState, useEffect } from 'react';
 import { DataTable } from "react-native-paper";
-import { AntDesign } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import { Image as ExpoImage } from 'expo-image';
 import logo from '../assets/OnlyLogo.png';
 import { getCoins } from "../api/Functions";
@@ -61,15 +61,21 @@ export default function Home({ navigation }) {
                         <Text style={data.tableTittle}>Name</Text>
                     </DataTable.Title>
                     <DataTable.Title onPress={priceFilter} numeric>
-                        <Text style={data.tableTittle}>Price</Text>
-                        <AntDesign name="caretup" size={8} color="black" />
-                        <AntDesign name="caretdown" size={8} color="black" />
-                    </DataTable.Title>
-                    <DataTable.Title onPress={changeFilter} numeric>
-                        <Text style={data.tableTittle}>Change</Text>
-                        <AntDesign name="caretup" size={8} color="black" />
-                        <AntDesign name="caretdown" size={8} color="black" />
-                    </DataTable.Title>
+                                    <View style={data.tableTittleRow}>
+                                        <Text style={data.tableTittle}>Price</Text>
+                                        <View style={{ marginLeft: 5 }}>
+                                            <FontAwesome name="sort" size={12} color="black" />
+                                        </View>
+                                    </View>
+                                </DataTable.Title>
+                                <DataTable.Title onPress={changeFilter} numeric>
+                                    <View style={data.tableTittleRow}>
+                                        <Text style={data.tableTittle}>Change</Text>
+                                        <View style={data.tableTittleSpace}>
+                                            <FontAwesome name="sort" size={12} color="black" />
+                                        </View>
+                                    </View>
+                                </DataTable.Title>
                     <DataTable.Title></DataTable.Title>
                 </DataTable.Header>
 
@@ -83,7 +89,7 @@ export default function Home({ navigation }) {
                                     contentFit="contain"
                                 />
                                 <View>
-                                    <Text style={data.tableText}>{item.name}</Text>
+                                    <Text style={data.tableTittle}>{item.name}</Text>
                                     <Text style={data.tableTextColor}>{item.symbol}</Text>
                                 </View>
                             </View>

@@ -54,8 +54,18 @@ const data = StyleSheet.create({
     marginBottom: 10
   },
 
+  tableTittleRow: {
+    flexDirection: 'row', 
+    alignItems: 'center'
+  },
+
+  tableTittleSpace: {
+    marginLeft: 5,
+  },
+
   tableTittle: {
-    color: "black"
+    color: "black",
+    fontSize: 12
   },
 
   tableRow: {
