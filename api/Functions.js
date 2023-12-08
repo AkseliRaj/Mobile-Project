@@ -1,6 +1,3 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-
 const URL = 'https://api.coinranking.com/v2/'
 const APIKEY = "coinrankingf42c6745f49e34e0cc901dcb0960ec367f35caf528b67704"
 
@@ -22,7 +19,8 @@ export const getCoins = async () => {
         return result.data.coins
     }
     catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching data:', error)
+        return "error"
     }
 }
 
@@ -40,6 +38,7 @@ export const getFiatCurrencies = async () => {
     }
     catch (error) {
         console.error('Error fetching data:', error);
+        return "error"
     }
 }
 
@@ -64,6 +63,7 @@ export const getCoinDetails = async (id, timePeriod) => {
         return result.data.coin;
     } catch (error) {
         console.error('Error fetching data:', error);
+        return "error"
     }
 }
 
@@ -81,5 +81,6 @@ export const searchCoin = async (search) => {
     }
     catch (error) {
         console.error('Error fetching data:', error);
+        return "error"
     }
 }

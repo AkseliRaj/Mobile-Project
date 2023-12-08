@@ -53,11 +53,11 @@ const DropdownList = ({ currencyItems, setCurrency, placeholderValue, setAmount,
             </View>
             <TextInput
                 style={converter.textInput}
-                keyboardType='number-pad'
+                keyboardType='decimal-pad'
                 returnKeyType="done"
                 textAlign='right'
                 placeholder={String(placeholderValue)}
-                onChangeText={setAmount ? v => setAmount(Number(v)) : null}
+                onChangeText={setAmount ? v => setAmount(Number(v.replace(/,/g, '.'))) : null}
                 editable={setAmount ? true : false}
             />
         </View>

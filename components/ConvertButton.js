@@ -1,16 +1,30 @@
-import { Text, TouchableOpacity } from 'react-native'
+import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
-import { converter } from '../style/styles'
 
-const ConvertButton = ({ callback }) => {
+const ConvertButton = ({ callback,text }) => {
     return (
         <TouchableOpacity
-            style={converter.button}
+            style={styles.container}
             onPress={callback}
         >
-            <Text style={converter.text}>Refresh converter</Text>
+            <Text style={styles.text}>{text}</Text>
         </TouchableOpacity>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        marginTop: 20,
+        backgroundColor: "#004CFF",
+        padding: 10,
+        width: 150,
+        borderRadius: 15,
+        alignItems: "center"
+    },
+    text: {
+        color: "#FFFFFF",
+        fontSize: 15
+    }
+})
 
 export default ConvertButton

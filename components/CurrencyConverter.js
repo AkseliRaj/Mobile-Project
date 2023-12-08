@@ -7,6 +7,7 @@ import ConvertButton from './ConvertButton'
 import ConversionResult from './ConversionResult'
 import { getCoins, getFiatCurrencies, getCoinDetails } from '../api/Functions'
 import { converter } from '../style/styles'
+import ErrorScreen from "./ErrorScreen"
 
 const CurrencyConverter = ({ route }) => {
     const [cryptoInput, setCryptoInput] = useState("BTC")
@@ -17,6 +18,7 @@ const CurrencyConverter = ({ route }) => {
     const [isSwapped, setIsSwapped] = useState(false)
     const [cryptos, setCryptos] = useState([])
     const [currencies, setCurrencies] = useState([])
+    const [error, setError] = useState(false)
 
     useEffect(() => {
         setAmount(1)
@@ -30,7 +32,6 @@ const CurrencyConverter = ({ route }) => {
             const hasCoin = cryptos.some(crypto => crypto.title === coin.symbol)
 
             if (hasCoin === false) {
-                console.log("läpi")
                 setCryptos([...cryptos, {
                     title: coin.symbol,
                     image: coin.iconUrl,
@@ -56,15 +57,29 @@ const CurrencyConverter = ({ route }) => {
             : `${cryptoId}?referenceCurrencyUuid=${currencyId}`
 
         const response = await getCoinDetails(convertingParameters)
+        
+        if(response === "error") {
+            setError(true)
+            return 0
+        }
 
         const calculus = amount * Number(response.price)
+
         setResult(calculus.toFixed(6))
         setIsConverted(true)
+
+
     }
 
     const createCurrencyItems = async () => {
         const currencyData = await getFiatCurrencies()
 
+
+        if(currencyData === "error") {
+            setError(true)
+            return 0
+        }
+    
         const filteredData = currencyData.map(currency => ({
             uuid: currency.uuid,
             symbol: currency.symbol,
@@ -82,6 +97,11 @@ const CurrencyConverter = ({ route }) => {
 
     const createCryptoItems = async () => {
         const cryptoData = await getCoins()
+
+        if(cryptoData === "error") {
+            setError(true)
+            return 0
+        }
 
         const filteredData = cryptoData.map(crypto => ({
             uuid: crypto.uuid,
@@ -101,45 +121,53 @@ const CurrencyConverter = ({ route }) => {
         setIsSwapped(!isSwapped)
     }
 
-    return (
-        <View style={[converter.container, { paddingTop: Constants.statusBarHeight }]}>
-            <Text style={converter.header}>Currency converter</Text>
-            <Text style={converter.subHeader}>Convert {isSwapped ? currencyInput : cryptoInput} to {isSwapped ? cryptoInput : currencyInput}</Text>
-            <View style={converter.converterContainer}>
-                <DropdownList
-                    currencyItems={isSwapped ? currencies : cryptos}
-                    setCurrency={isSwapped ? setCurrencyInput : setCryptoInput}
-                    placeholderValue={amount}
-                    setAmount={setAmount}
-                    currentItem={isSwapped ? currencyInput : cryptoInput}
-                    setIsConverted={setIsConverted}
-                />
-                <TouchableOpacity
-                    style={converter.swapButton}
-                    onPress={swapTextInput}>
-                    <Ionicons name="md-swap-vertical" size={24} color="black" />
-                </TouchableOpacity>
-                <DropdownList
-                    currencyItems={isSwapped ? cryptos : currencies}
-                    setCurrency={isSwapped ? setCryptoInput : setCurrencyInput}
-                    placeholderValue={result}
-                    currentItem={isSwapped ? cryptoInput : currencyInput}
-                    setIsConverted={setIsConverted}
-                />
-                <ConversionResult
-                    isSwapped={isSwapped}
-                    isConverted={isConverted}
-                    amount={amount}
-                    crypto={cryptoInput}
-                    currency={currencyInput}
-                    result={result}
-                />
-                <ConvertButton
-                    callback={convertCurrency}
-                />
+    if (!error) {
+        return (
+            <View style={[converter.container, { paddingTop: Constants.statusBarHeight }]}>
+                <Text style={converter.header}>Currency converter</Text>
+                <Text style={converter.subHeader}>Convert {isSwapped ? currencyInput : cryptoInput} to {isSwapped ? cryptoInput : currencyInput}</Text>
+                <View style={converter.converterContainer}>
+                    <DropdownList
+                        currencyItems={isSwapped ? currencies : cryptos}
+                        setCurrency={isSwapped ? setCurrencyInput : setCryptoInput}
+                        placeholderValue={amount}
+                        setAmount={setAmount}
+                        currentItem={isSwapped ? currencyInput : cryptoInput}
+                        setIsConverted={setIsConverted}
+                    />
+                    <TouchableOpacity
+                        style={converter.swapButton}
+                        onPress={swapTextInput}>
+                        <Ionicons name="md-swap-vertical" size={24} color="black" />
+                    </TouchableOpacity>
+                    <DropdownList
+                        currencyItems={isSwapped ? cryptos : currencies}
+                        setCurrency={isSwapped ? setCryptoInput : setCurrencyInput}
+                        placeholderValue={result}
+                        currentItem={isSwapped ? cryptoInput : currencyInput}
+                        setIsConverted={setIsConverted}
+                    />
+                    <ConversionResult
+                        isSwapped={isSwapped}
+                        isConverted={isConverted}
+                        amount={amount}
+                        crypto={cryptoInput}
+                        currency={currencyInput}
+                        result={result}
+                    />
+                    <ConvertButton
+                        callback={convertCurrency}
+                        text={"Refresh Converter"}
+                    />
+                </View>
             </View>
-        </View>
-    )
+        )
+    }
+    else {
+        return (
+            <ErrorScreen />
+        )
+    }
 }
 
 export default CurrencyConverter
