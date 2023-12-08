@@ -63,7 +63,7 @@ export default function Home({ navigation }) {
                     <DataTable.Title onPress={priceFilter} numeric>
                                     <View style={data.tableTittleRow}>
                                         <Text style={data.tableTittle}>Price</Text>
-                                        <View style={{ marginLeft: 5 }}>
+                                        <View style={data.tableTittleSpace}>
                                             <FontAwesome name="sort" size={12} color="black" />
                                         </View>
                                     </View>
@@ -89,7 +89,7 @@ export default function Home({ navigation }) {
                                     contentFit="contain"
                                 />
                                 <View>
-                                    <Text style={data.tableTittle}>{item.name}</Text>
+                                    <Text style={data.tableText}>{item.name}</Text>
                                     <Text style={data.tableTextColor}>{item.symbol}</Text>
                                 </View>
                             </View>
