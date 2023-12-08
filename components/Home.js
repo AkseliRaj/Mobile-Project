@@ -61,21 +61,21 @@ export default function Home({ navigation }) {
                         <Text style={data.tableTittle}>Name</Text>
                     </DataTable.Title>
                     <DataTable.Title onPress={priceFilter} numeric>
-                                    <View style={data.tableTittleRow}>
-                                        <Text style={data.tableTittle}>Price</Text>
-                                        <View style={data.tableTittleSpace}>
-                                            <FontAwesome name="sort" size={12} color="black" />
-                                        </View>
-                                    </View>
-                                </DataTable.Title>
-                                <DataTable.Title onPress={changeFilter} numeric>
-                                    <View style={data.tableTittleRow}>
-                                        <Text style={data.tableTittle}>Change</Text>
-                                        <View style={data.tableTittleSpace}>
-                                            <FontAwesome name="sort" size={12} color="black" />
-                                        </View>
-                                    </View>
-                                </DataTable.Title>
+                        <View style={data.tableTittleRow}>
+                            <Text style={data.tableTittle}>Price</Text>
+                            <View style={data.tableTittleSpace}>
+                                <FontAwesome name="sort" size={12} color="black" />
+                            </View>
+                        </View>
+                    </DataTable.Title>
+                    <DataTable.Title onPress={changeFilter} numeric>
+                        <View style={data.tableTittleRow}>
+                            <Text style={data.tableTittle}>Change</Text>
+                            <View style={data.tableTittleSpace}>
+                                <FontAwesome name="sort" size={12} color="black" />
+                            </View>
+                        </View>
+                    </DataTable.Title>
                     <DataTable.Title></DataTable.Title>
                 </DataTable.Header>
 

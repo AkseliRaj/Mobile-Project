@@ -84,7 +84,7 @@ const Coins = ({ navigation }) => {
                                     <Text style={data.tableTittle}>Name</Text>
                                 </DataTable.Title>
                                 <DataTable.Title onPress={priceFilter} numeric>
-                                <View style={data.tableTittleRow}>
+                                    <View style={data.tableTittleRow}>
                                         <Text style={data.tableTittle}>Price</Text>
                                         <View style={data.tableTittleSpace}>
                                             <FontAwesome name="sort" size={12} color="black" />
