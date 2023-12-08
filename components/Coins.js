@@ -143,7 +143,7 @@ const Coins = ({ navigation }) => {
                                             contentFit="contain"
                                         />
                                         <View>
-                                            <Text style={data.tableWrap}>{item.name}</Text>
+                                            <Text style={data.tableText}>{item.name}</Text>
                                             <Text style={data.tableTextColor}>{item.symbol}</Text>
                                         </View>
                                     </View>
