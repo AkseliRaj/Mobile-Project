@@ -1,9 +1,9 @@
 const { StyleSheet } = require('react-native')
 
-const stylesLM = StyleSheet.create({
+const stylesDM = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#282828',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -12,13 +12,17 @@ const stylesLM = StyleSheet.create({
     height: 230,
     resizeMode: 'contain'
   },
+  
+  text: {
+    color: 'white'
+  },
 
 });
 
-const dataLM = StyleSheet.create({
+const dataDM = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#282828'
   },
 
   logo: {
@@ -32,26 +36,31 @@ const dataLM = StyleSheet.create({
     gap: 12,
     marginLeft: 14,
     marginRight: 30,
-    marginBottom: 20
+    marginBottom: 20,
+    
   },
 
   header: {
     fontSize: 20,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    color: "white"
   },
 
   text: {
-    fontSize: 13
+    fontSize: 13,
+    color: "white"
   },
 
   bold: {
-    fontWeight: "bold"
+    fontWeight: "bold",
+    color: "white"
   },
 
   subHeader: {
     fontSize: 16,
     marginLeft: 14,
-    marginBottom: 10
+    marginBottom: 10,
+    color: "white"
   },
 
   tableTittleRow: {
@@ -64,7 +73,7 @@ const dataLM = StyleSheet.create({
   },
 
   tableTittle: {
-    color: "black",
+    color: "white",
     fontSize: 12
   },
 
@@ -81,6 +90,7 @@ const dataLM = StyleSheet.create({
 
   tableText: {
     fontSize: 11,
+    color: "white"
   },
 
   tableTextColor: {
@@ -131,15 +141,16 @@ const dataLM = StyleSheet.create({
 
   closeIcon: {
     marginRight: 14
-  }
+  },
+
 
 })
 
-const specificLM = StyleSheet.create({
+const specificDM = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#282828',
   },
 
   centeredContainer: {
@@ -165,6 +176,7 @@ const specificLM = StyleSheet.create({
 
   chartContainer: {
     borderWidth: 1,
+    backgroundColor: 'white',
     borderColor: 'black',
     borderRadius: 16,
     overflow: 'hidden', // This is important to prevent overflow of border
@@ -178,15 +190,18 @@ const specificLM = StyleSheet.create({
   coinNameHeading: {
     fontWeight: "bold",
     fontSize: 20,
+    color: "white"
   },
 
   dataHeading: {
     fontWeight: "bold",
     fontSize: 13,
+    color: "white"
   },
 
   dataText: {
     fontSize: 13,
+    color: "white"
   },
 
   SpecificStockButton: {
@@ -210,7 +225,7 @@ const specificLM = StyleSheet.create({
   },
 })
 
-const converter = StyleSheet.create({
+const converterDM = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
@@ -320,4 +335,4 @@ const converter = StyleSheet.create({
 
 })
 
-export { stylesLM, dataLM, specificLM, converter };
+export { stylesDM, dataDM, specificDM, converterDM };

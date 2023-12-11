@@ -5,7 +5,8 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Image as ExpoImage } from 'expo-image';
 import logo from '../assets/OnlyLogo.png';
 import { getCoins } from "../api/Functions";
-import { data } from '../style/styles'
+import { dataLM } from '../style/styles'
+import { dataDM, stylesDM } from '../style/stylesDM'
 import ErrorScreen from "./ErrorScreen";
 
 
@@ -15,6 +16,8 @@ export default function Home({ navigation }) {
     const [items, setItems] = useState([])
     const [filter, setFilter] = useState(true)
     const [error, setError] = useState(false)
+
+    const data = dataDM
 
     useEffect(() => {
         const fetchCoins = async () => {
@@ -73,7 +76,7 @@ export default function Home({ navigation }) {
                             <View style={data.tableTittleRow}>
                                 <Text style={data.tableTittle}>Price</Text>
                                 <View style={data.tableTittleSpace}>
-                                    <FontAwesome name="sort" size={12} color="black" />
+                                    <FontAwesome name="sort" size={12} color={data !== dataDM ? "black" : "white"} />
                                 </View>
                             </View>
                         </DataTable.Title>
@@ -81,7 +84,7 @@ export default function Home({ navigation }) {
                             <View style={data.tableTittleRow}>
                                 <Text style={data.tableTittle}>Change</Text>
                                 <View style={data.tableTittleSpace}>
-                                    <FontAwesome name="sort" size={12} color="black" />
+                                    <FontAwesome name="sort" size={12} color={data !== dataDM ? "black" : "white"} />
                                 </View>
                             </View>
                         </DataTable.Title>
