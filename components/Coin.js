@@ -27,7 +27,7 @@ const SpecificCoin = ({ navigation, route }) => {
 
   const navigateToCurrencyConverter = () => {
     navigation.popToTop();
-    navigation.navigate('Currency converter', coin);
+    navigation.navigate('Converter', coin);
   };
 
   // Getting data from the API
