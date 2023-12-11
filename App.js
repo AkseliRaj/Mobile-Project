@@ -1,8 +1,8 @@
 import Home from './components/Home';
 import Loading from './components/Loading';
-import Coins from './components/Coins';
-import CurrencyConverter from './components/CurrencyConverter';
-import SpecificCoin from './components/SpecificCoin';
+import Coins from './components/Search';
+import CurrencyConverter from './components/Converter';
+import SpecificCoin from './components/Coin';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -18,12 +18,12 @@ const Stack = createStackNavigator();
 const StocksNavigator = () => (
   <Stack.Navigator>
     <Stack.Screen
-      name='Coins'
+      name='Search'
       component={Coins}
       options={{ headerShown: true }}
     />
     <Stack.Screen
-      name='Specific coin'
+      name='Coin'
       component={SpecificCoin}
       options={{ tabBarStyle: { display: 'none' } }}
     />
@@ -38,7 +38,7 @@ const HomeNavigator = () => (
       options={{ headerShown: true }}
     />
     <Stack.Screen
-      name='Specific coin'
+      name='Coin'
       component={SpecificCoin}
       options={{ tabBarStyle: { display: 'none' } }}
     />
@@ -108,12 +108,12 @@ export default function App() {
             options={{
               tabBarLabelPosition: 'below-icon',
               headerShown: false,
-              title: 'Coins',
+              title: 'Search',
               tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='magnify' size={25} color={color} />),
             }}
           />
           <Tab.Screen
-            name='Currency converter'
+            name='Converter'
             component={CurrencyConverter}
             options={{
               tabBarLabelPosition: 'below-icon',

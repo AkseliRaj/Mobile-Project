@@ -32,7 +32,7 @@ const data = StyleSheet.create({
     gap: 12,
     marginLeft: 14,
     marginRight: 30,
-    marginBottom: 20
+    marginBottom: 20,
   },
 
   header: {
@@ -149,7 +149,10 @@ const specific = StyleSheet.create({
 
   timePeriodContainer: {
     padding: 10,
+    paddingTop: 0,
     flexDirection: "row",
+    alignItems: 'center',
+    justifyContent: 'center',
     gap: 15
   },
 
