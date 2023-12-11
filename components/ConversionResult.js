@@ -1,5 +1,6 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import { converter } from '../style/styles'
 
 const ConversionResult = ({ isSwapped, isConverted, amount, crypto, currency, result }) => {
     const [flexDirection, setFlexDirection] = useState("row")
@@ -19,7 +20,7 @@ const ConversionResult = ({ isSwapped, isConverted, amount, crypto, currency, re
     
     return (
         <>{isConverted &&
-            <View style={[styles.resultContainer, {flexDirection: flexDirection}]}>
+            <View style={[converter.resultContainer, {flexDirection: flexDirection}]}>
                 {isSwapped
                     ? <Text style={{ fontSize: 18 }}>{amount} {currency}</Text>
                     : <Text style={{ fontSize: 18 }}>{amount} {crypto}</Text>
@@ -32,15 +33,5 @@ const ConversionResult = ({ isSwapped, isConverted, amount, crypto, currency, re
         </>
     )
 }
-
-const styles = StyleSheet.create({
-    resultContainer: {
-        marginTop: 20,
-        gap: 10,
-        alignItems: "center",
-        justifyContent: "center",
-        width: 300
-    }
-})
 
 export default ConversionResult

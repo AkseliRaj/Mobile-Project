@@ -1,13 +1,13 @@
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 
-const ConvertButton = ({ callback }) => {
+const ConvertButton = ({ callback,text }) => {
     return (
         <TouchableOpacity
             style={styles.container}
             onPress={callback}
         >
-            <Text style={styles.text}>Refresh converter</Text>
+            <Text style={styles.text}>{text}</Text>
         </TouchableOpacity>
     )
 }

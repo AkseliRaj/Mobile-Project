@@ -1,8 +1,9 @@
-import { View, TextInput, StyleSheet } from 'react-native'
+import { View, TextInput } from 'react-native'
 import { Image } from 'expo-image'
 import React, { useEffect, useState } from 'react'
 import SelectDropdown from 'react-native-select-dropdown'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import { converter } from '../style/styles'
 
 
 
@@ -22,7 +23,7 @@ const DropdownList = ({ currencyItems, setCurrency, placeholderValue, setAmount,
 
 
     return (
-        <View style={styles.container}>
+        <View style={converter.listContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Image
                     style={{ width: 30, height: 30 }}
@@ -42,8 +43,8 @@ const DropdownList = ({ currencyItems, setCurrency, placeholderValue, setAmount,
                         return item
                     }}
                     defaultValue={items[0]}
-                    buttonStyle={styles.dropdownButton}
-                    dropdownStyle={styles.dropdownContainer}
+                    buttonStyle={converter.dropdownButton}
+                    dropdownStyle={converter.dropdownContainer}
                     buttonTextStyle={{ fontSize: 15 }}
                     renderDropdownIcon={isOpened => {
                         return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'black'} size={10} />
@@ -51,41 +52,16 @@ const DropdownList = ({ currencyItems, setCurrency, placeholderValue, setAmount,
                 />
             </View>
             <TextInput
-                style={styles.textInput}
-                keyboardType='number-pad'
+                style={converter.textInput}
+                keyboardType='decimal-pad'
                 returnKeyType="done"
                 textAlign='right'
                 placeholder={String(placeholderValue)}
-                onChangeText={setAmount ? v => setAmount(Number(v)) : null}
+                onChangeText={setAmount ? v => setAmount(Number(v.replace(/,/g, '.'))) : null}
                 editable={setAmount ? true : false}
             />
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        width: "100%",
-        borderRadius: 10,
-        padding: 20,
-        backgroundColor: '#E7E7E7',
-        height: 55,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between"
-    },
-    label: {
-        marginBottom: 8,
-        fontSize: 16,
-    },
-    textInput: {
-        width: 100,
-        height: 40
-    },
-    dropdownButton: {
-        width: 90,
-        backgroundColor: '#E7E7E7',
-    }
-})
 
 export default DropdownList

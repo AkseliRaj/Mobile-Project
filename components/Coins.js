@@ -1,10 +1,13 @@
 import React from 'react';
-import { View, Text, Pressable, StyleSheet, ScrollView, TextInput, Keyboard } from 'react-native';
+import { View, Text, Pressable, ScrollView, TextInput, Keyboard } from 'react-native';
 import { getCoins, searchCoin } from "../api/Functions";
 import { DataTable } from "react-native-paper";
-import { AntDesign } from '@expo/vector-icons';
-import { useState, useEffect } from 'react';
+import { AntDesign, FontAwesome } from '@expo/vector-icons'
+import { useState, useEffect, useRef } from 'react';
 import { Image as ExpoImage } from 'expo-image';
+import { useScrollToTop } from '@react-navigation/native';
+import { data } from '../style/styles'
+import ErrorScreen from './ErrorScreen';
 
 
 const Coins = ({ navigation }) => {
@@ -14,252 +17,178 @@ const Coins = ({ navigation }) => {
     const [search, setSearch] = useState('')
     const [searchItems, setSearchItems] = useState([])
     const [searching, setSearching] = useState(false)
+    const [error, setError] = useState(false)
 
-  useEffect(() => {
-    const fetchCoins = async () => {
-        const result = await getCoins();
-        setItems(result);
-    };
+    const ref = useRef(null);
 
-    fetchCoins();
-}, []);
+    useEffect(() => {
+        const fetchCoins = async () => {
+            const result = await getCoins();
+            
+            if(result === "error") {
+                setError(true)
+                return 0
+            }
+            setItems(result);
+        };
 
-function priceFilter() {
-  let lowerPrice = [...items].sort((a, b) => b.price - a.price);
-  let higherPrice = [...items].sort((a, b) => a.price - b.price);
-  let price = filter ? lowerPrice : higherPrice;
-  setFilter((prevFilter) => !prevFilter);
-  setItems(price);
-}
+        fetchCoins();
+    }, []);
 
-function changeFilter() {
-  let lowerChange = [...items].sort((a, b) => b.change - a.change);
-  let higherChange = [...items].sort((a, b) => a.change - b.change);
-  let change = filter ? lowerChange : higherChange;
-  setFilter((prevFilter) => !prevFilter);
-  setItems(change);
-}
-
-//functions for searching
-
-const searchCoins = async (searchQuery) => {  
-    const result = await searchCoin(searchQuery);
-    setSearchItems(result);
-    setSearching(true) 
-}
-
-const clearSearch = () => {
-    setSearch('')
-    setSearching(false)
-    Keyboard.dismiss()
-}
-
-
-
-      
-  return (
-    <View style={styles.container}>
-        <View style={styles.searchBar}>
-            <TextInput
-                style={styles.searchInput}
-                placeholder="Search coins..."
-                value={search}
-                onChangeText={(text) => (searchCoins(text),setSearch(text))}
-            />
-            {!searching ? <AntDesign onPress={() => searchCoins()} name="search1" size={20} color="black" style={styles.searchButton}/> : <AntDesign onPress={() => clearSearch()} name="close" size={20} color="black" style={styles.searchButton}/> }
-        </View>
-        <ScrollView>
-            <DataTable>
-                {!searching && (
-                    <>
-                        <DataTable.Header>
-                            <DataTable.Title>
-                                <Text style={styles.tableTittle}>Name</Text>
-                            </DataTable.Title>
-                            <DataTable.Title onPress={priceFilter} numeric>
-                                <Text style={styles.tableTittle}>Price</Text>
-                                    <AntDesign name="caretup" size={8} color="black" />
-                                    <AntDesign name="caretdown" size={8} color="black" />
-                            </DataTable.Title>
-                            <DataTable.Title onPress={changeFilter} numeric>
-                                <Text style={styles.tableTittle}>Change</Text>
-                                    <AntDesign name="caretup" size={8} color="black" />
-                                    <AntDesign name="caretdown" size={8} color="black" />
-                            </DataTable.Title>
-                            <DataTable.Title></DataTable.Title>
-                        </DataTable.Header>
-                    </>
-                )}
-                    
-                    {!searching ? items.map((item, index) => (
-                        <DataTable.Row key={index}>
-                            <DataTable.Cell>
-                                <View style={styles.tableRow}>
-                                    <ExpoImage
-                                        style={styles.tableIcon}
-                                        source={{ uri: item.iconUrl }}
-                                        contentFit="contain"
-                                    />
-                                    <View>
-                                        <Text style={styles.tableText}>{item.name}</Text>
-                                        <Text style={styles.tableTextColor}>{item.symbol}</Text>
-                                    </View>
-                                </View>
-                            </DataTable.Cell>
-                            <DataTable.Cell numeric>
-                                <Text style={styles.tableText}>${parseFloat(item.price).toFixed(2)}</Text>
-                            </DataTable.Cell>
-                            <DataTable.Cell numeric>
-                                <Text style={styles.tableText}>{item.change}</Text>
-                            </DataTable.Cell>
-                            <DataTable.Cell style={styles.tableButtonCell}>
-                                <Pressable style={styles.tableButton} onPress={() => navigation.navigate('Specific coin', { uuid: item.uuid })}>
-                                    <Text style={styles.tableButtonText}>Open</Text>
-                                </Pressable>
-                            </DataTable.Cell>
-                        </DataTable.Row>
-                    ))
-                    :
-                    searchItems.map((item, index) => (
-                        <DataTable.Row key={index}>
-                            <DataTable.Cell>
-                                <View style={styles.tableRow}>
-                                    <ExpoImage
-                                        style={styles.tableIcon}
-                                        source={{ uri: item.iconUrl }}
-                                        contentFit="contain"
-                                    />
-                                    <View>
-                                        <Text style={styles.tableText}>{item.name}</Text>
-                                        <Text style={styles.tableTextColor}>{item.symbol}</Text>
-                                    </View>
-                                </View>
-                            </DataTable.Cell>
-                            <DataTable.Cell numeric>
-                                <Text style={styles.tableText}>${parseFloat(item.price).toFixed(2)}</Text>
-                            </DataTable.Cell>
-                            <DataTable.Cell numeric>
-                                <Text style={styles.tableText}>{item.change}</Text>
-                            </DataTable.Cell>
-                            <DataTable.Cell style={styles.tableButtonCell}>
-                                <Pressable style={styles.tableButton} onPress={() => navigation.navigate('Specific coin', { uuid: item.uuid })}>
-                                    <Text style={styles.tableButtonText}>Open</Text>
-                                </Pressable>
-                            </DataTable.Cell>
-                        </DataTable.Row>
-                    ))
-                    }
-
-                </DataTable>
-        </ScrollView>
-      </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-      flex: 1,
-      backgroundColor: '#fff'
-  },
-
-  logo: {
-      height: 120,
-      width: 127,
-      resizeMode: 'contain',
-      alignSelf: 'flex-start'
-  },
-
-  article: {
-      gap: 12,
-      marginLeft: 14,
-      marginRight: 30,
-      marginBottom: 20
-  },
-
-  header: {
-      fontSize: 20,
-      fontWeight: "bold"
-  },
-
-  text: {
-      fontSize: 13
-  },
-
-  bold: {
-      fontWeight: "bold"
-  },
-
-  subHeader: {
-      fontSize: 16,
-      marginLeft: 14,
-      marginBottom: 10
-  },
-
-  tableTittle: {
-      color: "black"
-  },
-
-  tableRow: {
-      flexDirection: "row",
-      alignItems: "center"
-  },
-
-  tableIcon: {
-      width: 24,
-      height: 24,
-      marginRight: 8
-  },
-
-  tableText: {
-      fontSize: 11,
-  },
-
-  tableTextColor: {
-      fontSize: 11,
-      color: "#B3B3B3" 
-  },
-
-  tableButtonCell: {
-      justifyContent: "center" 
-  },
-
-  tableButton: {
-      backgroundColor: '#004CFF', 
-      padding: 3, 
-      borderRadius: 20
-  },
-
-  tableButtonText: {
-      fontSize: 11, 
-      width: 40, 
-      height: 17, 
-      textAlign: "center", 
-      color: "white"
-  },
-
-    searchBar: {
-        backgroundColor: '#E7E7E7',
-        height: 40,
-        borderRadius: 20,
-        margin: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row'
-    },
-
-    searchInput: {
-        fontSize: 15,
-        color: '#000',
-        width: '85%',
-        height: '100%',
-        marginLeft: 10
-    },
-
-    searchButton: {
-        marginRight: 10,
+    function priceFilter() {
+        let lowerPrice = [...items].sort((a, b) => b.price - a.price);
+        let higherPrice = [...items].sort((a, b) => a.price - b.price);
+        let price = filter ? lowerPrice : higherPrice;
+        setFilter((prevFilter) => !prevFilter);
+        setItems(price);
     }
 
-})
+    function changeFilter() {
+        let lowerChange = [...items].sort((a, b) => b.change - a.change);
+        let higherChange = [...items].sort((a, b) => a.change - b.change);
+        let change = filter ? lowerChange : higherChange;
+        setFilter((prevFilter) => !prevFilter);
+        setItems(change);
+    }
+
+    //functions for searching
+
+    const searchCoins = async (searchQuery) => {
+        const result = await searchCoin(searchQuery);
+        
+        if(result === "error") {
+            setError(true)
+            return 0
+        }
+
+        setSearchItems(result);
+        setSearching(true)
+    }
+
+    const clearSearch = () => {
+        setSearch('')
+        setSearching(false)
+        Keyboard.dismiss()
+    }
+
+    useScrollToTop(ref);
+
+    if (!error) {
+        return (
+            <View style={data.container}>
+                <View style={data.searchBar}>
+                    <AntDesign name="search1" size={20} color="black" style={data.searchIcon} />
+                    <TextInput
+                        style={data.searchInput}
+                        placeholder="Search coins..."
+                        keyboardType='default'
+                        returnKeyType='search'
+                        value={search}
+                        onChangeText={(text) => (searchCoins(text), setSearch(text))}
+                    />
+                    {searching &&
+                        <AntDesign onPress={() => clearSearch()} name="close" size={13} color="black" style={data.closeIcon} />
+                    }
+                </View>
+                <ScrollView ref={ref}>
+                    <DataTable>
+                        {!searching && (
+                            <>
+                                <DataTable.Header>
+                                    <DataTable.Title>
+                                        <Text style={data.tableTittle}>Name</Text>
+                                    </DataTable.Title>
+                                    <DataTable.Title onPress={priceFilter} numeric>
+                                        <View style={data.tableTittleRow}>
+                                            <Text style={data.tableTittle}>Price</Text>
+                                            <View style={data.tableTittleSpace}>
+                                                <FontAwesome name="sort" size={12} color="black" />
+                                            </View>
+                                        </View>
+                                    </DataTable.Title>
+                                    <DataTable.Title onPress={changeFilter} numeric>
+                                        <View style={data.tableTittleRow}>
+                                            <Text style={data.tableTittle}>Change</Text>
+                                            <View style={data.tableTittleSpace}>
+                                                <FontAwesome name="sort" size={12} color="black" />
+                                            </View>
+                                        </View>
+                                    </DataTable.Title>
+                                    <DataTable.Title></DataTable.Title>
+                                </DataTable.Header>
+                            </>
+                        )}
+
+                        {!searching ? items.map((item, index) => (
+                            <DataTable.Row key={index}>
+                                <DataTable.Cell>
+                                    <View style={data.tableRow}>
+                                        <ExpoImage
+                                            style={data.tableIcon}
+                                            source={{ uri: item.iconUrl }}
+                                            contentFit="contain"
+                                        />
+                                        <View>
+                                            <Text style={data.tableText}>{item.name}</Text>
+                                            <Text style={data.tableTextColor}>{item.symbol}</Text>
+                                        </View>
+                                    </View>
+                                </DataTable.Cell>
+                                <DataTable.Cell numeric>
+                                    <Text style={data.tableText}>${parseFloat(item.price).toFixed(2)}</Text>
+                                </DataTable.Cell>
+                                <DataTable.Cell numeric>
+                                    <Text style={data.tableText}>{item.change}</Text>
+                                </DataTable.Cell>
+                                <DataTable.Cell style={data.tableButtonCell}>
+                                    <Pressable style={data.tableButton} onPress={() => navigation.navigate('Specific coin', { uuid: item.uuid })}>
+                                        <Text style={data.tableButtonText}>Open</Text>
+                                    </Pressable>
+                                </DataTable.Cell>
+                            </DataTable.Row>
+                        ))
+                            :
+                            searchItems.map((item, index) => (
+                                <DataTable.Row key={index}>
+                                    <DataTable.Cell>
+                                        <View style={data.tableRow}>
+                                            <ExpoImage
+                                                style={data.tableIcon}
+                                                source={{ uri: item.iconUrl }}
+                                                contentFit="contain"
+                                            />
+                                            <View>
+                                                <Text style={data.tableText}>{item.name}</Text>
+                                                <Text style={data.tableTextColor}>{item.symbol}</Text>
+                                            </View>
+                                        </View>
+                                    </DataTable.Cell>
+                                    <DataTable.Cell numeric>
+                                        <Text style={data.tableText}>${parseFloat(item.price).toFixed(2)}</Text>
+                                    </DataTable.Cell>
+                                    <DataTable.Cell numeric>
+                                        <Text style={data.tableText}>{item.change}</Text>
+                                    </DataTable.Cell>
+                                    <DataTable.Cell style={data.tableButtonCell}>
+                                        <Pressable style={data.tableButton} onPress={() => navigation.navigate('Specific coin', { uuid: item.uuid })}>
+                                            <Text style={data.tableButtonText}>Open</Text>
+                                        </Pressable>
+                                    </DataTable.Cell>
+                                </DataTable.Row>
+                            ))
+                        }
+
+                    </DataTable>
+                </ScrollView>
+            </View>
+        );
+    }
+    else {
+        return (
+            <ErrorScreen />
+        )
+    }
+};
 
 export default Coins;
 

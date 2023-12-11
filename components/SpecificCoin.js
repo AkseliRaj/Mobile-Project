@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, Text, Pressable, Dimensions, StyleSheet, ScrollView } from 'react-native';
+import Loading from './Loading';
+import { View, Text, Pressable, Dimensions, ScrollView } from 'react-native';
 import { Image as ExpoImage } from 'expo-image';
 import { LineChart } from "react-native-chart-kit";
 import { useEffect, useState } from 'react';
 import { getCoinDetails } from '../api/Functions';
-import Loading from './Loading';
+import { specific } from '../style/styles'
+import ErrorScreen from './ErrorScreen';
 
 // Hard coded uuid for testing purposes
 // const UUID = 'Qwsogvtv82FCd'
@@ -15,10 +17,12 @@ const SpecificCoin = ({ navigation, route }) => {
 
   const [coin, setCoin] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false)
 
   const timePeriods = ["1h", "3h", "3m", "1y", "3y"];
   const [selectedTimePeriod, setSelectedTimePeriod] = useState(null)
   const [timeframe, setTimeframe] = useState([])
+
 
 
   const navigateToCurrencyConverter = () => {
@@ -28,14 +32,23 @@ const SpecificCoin = ({ navigation, route }) => {
 
   // Getting data from the API
   const fetchCoinDetails = async (timePeriod) => {
+
     setSelectedTimePeriod(timePeriod)
     let result = await getCoinDetails(uuid, timePeriod);
+
+
+    if (result === "error") {
+      setError(true)
+      return 0
+    }
+    
     const convertedSparkline = result.sparkline.map(dataPoint => parseFloat(dataPoint));
     const filteredSparkline = convertedSparkline.filter((dataPoint) => isNaN(dataPoint) === false)
 
     result.sparkline = filteredSparkline;
     setCoin(result);
     setIsLoading(false);
+
   };
 
   useEffect(() => {
@@ -123,165 +136,97 @@ const SpecificCoin = ({ navigation, route }) => {
   }
 
 
-  return (
-    <ScrollView style={styles.container}>
-      <View style={styles.centeredContainer}>
-        <View style={styles.timePeriodContainer}>
-          {timePeriods.map((item, i) => (
-            <Pressable
-              key={item + i}
-              onPress={() => fetchCoinDetails(item)}
-            >
-              <Text style={{ color: selectedTimePeriod === item ? "#004CFF" : "black" }}>{item}</Text>
-            </Pressable>
-          ))
-          }
-        </View>
-        <View style={styles.chartContainer}>
-          <LineChart
-            data={{
-              labels: timeframe,
-              datasets: [
-                {
-                  data: coin.sparkline
+  if (!error) {
+    return (
+      <ScrollView style={specific.container}>
+        <View style={specific.centeredContainer}>
+          <View style={specific.timePeriodContainer}>
+            {timePeriods.map((item, i) => (
+              <Pressable
+                key={item + i}
+                onPress={() => fetchCoinDetails(item)}
+              >
+                <Text style={{ color: selectedTimePeriod === item ? "#004CFF" : "black" }}>{item}</Text>
+              </Pressable>
+            ))
+            }
+          </View>
+          <View style={specific.chartContainer}>
+            <LineChart
+              data={{
+                labels: timeframe,
+                datasets: [
+                  {
+                    data: coin.sparkline
+                  }
+                ]
+              }}
+              width={Dimensions.get("window").width - 40} // from react-native
+              height={250}
+              yAxisSuffix="$"
+              yAxisInterval={1} // optional, defaults to 1
+              chartConfig={{
+                backgroundColor: "#ffffff",
+                backgroundGradientFrom: "#ffffff",
+                backgroundGradientTo: "#ffffff",
+                decimalPlaces: 0, // optional, defaults to 2dp
+                color: (opacity = 1) => `rgba(0, 76, 255, ${opacity})`,
+                labelColor: (opacity = 1) => `rgba(109, 109, 109, ${opacity})`,
+                style: {
+                  borderRadius: 16,
+                },
+                propsForDots: {
+                  r: "4",
+                  strokeWidth: "2",
+                  stroke: "#004CFF"
                 }
-              ]
-            }}
-            width={Dimensions.get("window").width - 40} // from react-native
-            height={250}
-            yAxisSuffix="$"
-            yAxisInterval={1} // optional, defaults to 1
-            chartConfig={{
-              backgroundColor: "#ffffff",
-              backgroundGradientFrom: "#ffffff",
-              backgroundGradientTo: "#ffffff",
-              decimalPlaces: 0, // optional, defaults to 2dp
-              color: (opacity = 1) => `rgba(0, 76, 255, ${opacity})`,
-              labelColor: (opacity = 1) => `rgba(109, 109, 109, ${opacity})`,
-              style: {
+              }}
+
+              style={{
+                marginVertical: 8,
                 borderRadius: 16,
-              },
-              propsForDots: {
-                r: "4",
-                strokeWidth: "2",
-                stroke: "#004CFF"
-              }
-            }}
-
-            style={{
-              marginVertical: 8,
-              borderRadius: 16,
-            }}
-          />
-        </View>
-        <View style={styles.dataWholeContainer}>
-          <View style={styles.coinNameHeadingContainer}>
-            <ExpoImage
-              style={styles.coinIcon}
-              source={{ uri: coin.iconUrl }}
+              }}
             />
-            <Text style={styles.coinNameHeading}>{coin.name}</Text>
           </View>
-          <View style={styles.dataContainer}>
-            <Text style={styles.dataHeading}>Price</Text>
-            <Text style={styles.dataText}>{formatPrice(coin.price)} $</Text>
+          <View style={specific.dataWholeContainer}>
+            <View style={specific.coinNameHeadingContainer}>
+              <ExpoImage
+                style={specific.coinIcon}
+                source={{ uri: coin.iconUrl }}
+              />
+              <Text style={specific.coinNameHeading}>{coin.name}</Text>
+            </View>
+            <View style={specific.dataContainer}>
+              <Text style={specific.dataHeading}>Price</Text>
+              <Text style={specific.dataText}>{formatPrice(coin.price)} $</Text>
+            </View>
+            <View style={specific.dataContainer}>
+              <Text style={specific.dataHeading}>Volume 24h</Text>
+              <Text style={specific.dataText}>{Number(coin['24hVolume']).toLocaleString()} $</Text>
+            </View>
+            <View style={specific.dataContainer}>
+              <Text style={specific.dataHeading}>Circulating supply</Text>
+              <Text style={specific.dataText}>{Number(coin.supply.circulating).toLocaleString()} Coins</Text>
+            </View>
+            <View>
+              <Text style={specific.dataHeading}>Market Cap</Text>
+              <Text style={specific.dataText}>{Number(coin.marketCap).toLocaleString()} $</Text>
+            </View>
           </View>
-          <View style={styles.dataContainer}>
-            <Text style={styles.dataHeading}>Volume 24h</Text>
-            <Text style={styles.dataText}>{Number(coin['24hVolume']).toLocaleString()} $</Text>
-          </View>
-          <View style={styles.dataContainer}>
-            <Text style={styles.dataHeading}>Circulating supply</Text>
-            <Text style={styles.dataText}>{Number(coin.supply.circulating).toLocaleString()} Coins</Text>
-          </View>
-          <View>
-            <Text style={styles.dataHeading}>Market Cap</Text>
-            <Text style={styles.dataText}>{Number(coin.marketCap).toLocaleString()} $</Text>
-          </View>
+
+
+          <Pressable style={specific.SpecificStockButton} onPress={navigateToCurrencyConverter}>
+            <Text style={specific.SpecificStockButtonText}>Currency converter</Text>
+          </Pressable>
         </View>
-
-
-        <Pressable style={styles.SpecificStockButton} onPress={navigateToCurrencyConverter}>
-          <Text style={styles.SpecificStockButtonText}>Currency converter</Text>
-        </Pressable>
-      </View>
-    </ScrollView>
-  );
+      </ScrollView>
+    );
+  }
+  else {
+    return (
+      <ErrorScreen />
+    )
+  }
 };
-
-const styles = StyleSheet.create({
-
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-
-  centeredContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  timePeriodContainer: {
-    padding: 10,
-    flexDirection: "row",
-    gap: 15
-  },
-
-  dataContainer: {
-    marginBottom: 13,
-  },
-
-  coinNameHeadingContainer: {
-    flexDirection: 'row',
-    marginBottom: 25,
-    marginTop: 25,
-  },
-
-  chartContainer: {
-    borderWidth: 1,
-    borderColor: 'black',
-    borderRadius: 16,
-    overflow: 'hidden', // This is important to prevent overflow of border
-    padding: 5,
-  },
-
-  dataWholeContainer: {
-    width: 230,
-  },
-
-  coinNameHeading: {
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-
-  dataHeading: {
-    fontWeight: "bold",
-    fontSize: 13,
-  },
-
-  dataText: {
-    fontSize: 13,
-  },
-
-  SpecificStockButton: {
-    backgroundColor: '#004CFF',
-    borderRadius: 14,
-    padding: 10,
-    paddingHorizontal: 20,
-    marginTop: 30,
-  },
-
-  SpecificStockButtonText: {
-    fontSize: 13,
-    textAlign: "center",
-    color: "white",
-  },
-
-  coinIcon: {
-    width: 30,
-    height: 30,
-    marginRight: 10,
-  },
-})
 
 export default SpecificCoin;
