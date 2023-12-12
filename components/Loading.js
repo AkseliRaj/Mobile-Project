@@ -1,12 +1,12 @@
 import { Image, Text, View } from "react-native";
 import logo from '../assets/LogoText.png'
-import { styles } from '../style/styles'
+import { loading } from '../style/styles'
 
 export default function Loading() {
     return (
-        <View style={styles.container}>
+        <View style={loading.container}>
             <Image
-                style={styles.logo}
+                style={loading.logo}
                 source={logo}
             />
             <Text>Loading...</Text>

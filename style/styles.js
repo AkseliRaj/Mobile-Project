@@ -1,6 +1,6 @@
 const { StyleSheet } = require('react-native')
 
-const styles = StyleSheet.create({
+const loading = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -14,6 +14,25 @@ const styles = StyleSheet.create({
   },
 
 });
+
+const error = StyleSheet.create({
+  Errorcontainer: {
+    backgroundColor: "white",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 20
+  },
+  errorHeader: {
+    fontSize: 30,
+    fontWeight: "bold"
+  },
+  errorMsg: {
+    fontSize: 16,
+    width: 230,
+    textAlign: "center"
+  }
+})
 
 const data = StyleSheet.create({
   container: {
@@ -55,7 +74,7 @@ const data = StyleSheet.create({
   },
 
   tableTittleRow: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     alignItems: 'center'
   },
 
@@ -319,8 +338,8 @@ const converter = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: 300
-}
+  }
 
 })
 
-export { styles, data, specific, converter };
+export { loading, error, data, specific, converter };
