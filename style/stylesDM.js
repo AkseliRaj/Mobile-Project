@@ -21,7 +21,7 @@ const loadingDM = StyleSheet.create({
 
 const errorDM = StyleSheet.create({
   Errorcontainer: {
-    backgroundColor: "white",
+    backgroundColor: "#282828",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -29,12 +29,14 @@ const errorDM = StyleSheet.create({
   },
   errorHeader: {
     fontSize: 30,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    color: "white"
   },
   errorMsg: {
     fontSize: 16,
     width: 230,
-    textAlign: "center"
+    textAlign: "center",
+    color: "white"
   }
 })
 
