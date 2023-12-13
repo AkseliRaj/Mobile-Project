@@ -63,7 +63,7 @@ const resetTabStacksOnBlur = ({ navigation }) => ({
 export default function App() {
 
   const [isloading, setIsLoading] = useState(true);
-  const [darkModeSet, setDarkModeSet] = useState(false);
+  const [darkModeSet, setDarkModeSet] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
@@ -89,6 +89,9 @@ export default function App() {
             tabBarActiveTintColor: '#004CFF',
             tabBarInactiveTintColor: darkModeSet ? 'white' : '#5B5B5B',
             tabBarLabelPosition: 'beside-icon',
+            tabBarStyle: {
+              backgroundColor: darkModeSet ? '#363535' : 'white',
+          },
           }}
         >
           <Tab.Screen
