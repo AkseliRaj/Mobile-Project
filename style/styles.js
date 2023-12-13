@@ -1,6 +1,6 @@
 const { StyleSheet } = require('react-native')
 
-const stylesLM = StyleSheet.create({
+const loadingLM = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -14,6 +14,25 @@ const stylesLM = StyleSheet.create({
   },
 
 });
+
+const errorLM = StyleSheet.create({
+  Errorcontainer: {
+    backgroundColor: "white",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 20
+  },
+  errorHeader: {
+    fontSize: 30,
+    fontWeight: "bold"
+  },
+  errorMsg: {
+    fontSize: 16,
+    width: 230,
+    textAlign: "center"
+  }
+})
 
 const dataLM = StyleSheet.create({
   container: {
@@ -320,4 +339,4 @@ const converter = StyleSheet.create({
 
 })
 
-export { stylesLM, dataLM, specificLM, converter };
+export { loadingLM, errorLM, dataLM, specificLM, converter };
