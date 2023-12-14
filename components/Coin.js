@@ -5,8 +5,11 @@ import { Image as ExpoImage } from 'expo-image';
 import { LineChart } from "react-native-chart-kit";
 import { useEffect, useState } from 'react';
 import { getCoinDetails } from '../api/Functions';
-import { specific } from '../style/styles'
+import { specificLM } from '../style/styles'
+import { specificDM } from '../style/stylesDM'
 import ErrorScreen from './ErrorScreen';
+import DarkModeContext from './DarkModeContext';
+import { useContext } from 'react';
 
 // Hard coded uuid for testing purposes
 // const UUID = 'Qwsogvtv82FCd'
@@ -22,6 +25,12 @@ const SpecificCoin = ({ navigation, route }) => {
   const timePeriods = ["1h", "3h", "3m", "1y", "3y"];
   const [selectedTimePeriod, setSelectedTimePeriod] = useState(null)
   const [timeframe, setTimeframe] = useState([])
+
+
+  const { darkModeSet } = useContext(DarkModeContext);
+  const specific = darkModeSet ? specificDM : specificLM;
+
+    
 
 
 
@@ -162,7 +171,7 @@ const SpecificCoin = ({ navigation, route }) => {
                 color: (opacity = 1) => `rgba(0, 76, 255, ${opacity})`,
                 labelColor: (opacity = 1) => `rgba(109, 109, 109, ${opacity})`,
                 style: {
-                  borderRadius: 16,
+                  borderRadius: 16
                 },
                 propsForDots: {
                   r: "4",

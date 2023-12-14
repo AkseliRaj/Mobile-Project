@@ -6,8 +6,13 @@ import DropdownList from './DropdownList'
 import ConvertButton from './ConvertButton'
 import ConversionResult from './ConversionResult'
 import { getCoins, getFiatCurrencies, getCoinDetails } from '../api/Functions'
-import { converter } from '../style/styles'
 import ErrorScreen from "./ErrorScreen"
+
+import { converter } from '../style/styles'
+import { converterDM } from '../style/stylesDM'
+
+import { useContext } from 'react'
+import DarkModeContext from './DarkModeContext'
 
 const CurrencyConverter = ({ route }) => {
     const [cryptoInput, setCryptoInput] = useState("BTC")
@@ -19,6 +24,9 @@ const CurrencyConverter = ({ route }) => {
     const [cryptos, setCryptos] = useState([])
     const [currencies, setCurrencies] = useState([])
     const [error, setError] = useState(false)
+
+    const { darkModeSet } = useContext(DarkModeContext)
+    const data = darkModeSet ? converterDM : converter
 
     useEffect(() => {
         setAmount(1)
@@ -123,10 +131,10 @@ const CurrencyConverter = ({ route }) => {
 
     if (!error) {
         return (
-            <View style={[converter.container, { paddingTop: Constants.statusBarHeight }]}>
-                <Text style={converter.header}>Conversion calculator</Text>
-                <Text style={converter.subHeader}>Convert {isSwapped ? currencyInput : cryptoInput} to {isSwapped ? cryptoInput : currencyInput}</Text>
-                <View style={converter.converterContainer}>
+            <View style={[data.container, { paddingTop: Constants.statusBarHeight }]}>
+                <Text style={[data.header, {color: data !== converterDM ? "black" : "white"}]}>Conversion calculator</Text>
+                <Text style={[data.subHeader, {color: data !== converterDM ? "black" : "white"}]}>Convert {isSwapped ? currencyInput : cryptoInput} to {isSwapped ? cryptoInput : currencyInput}</Text>
+                <View style={data.converterContainer}>
                     <DropdownList
                         currencyItems={isSwapped ? currencies : cryptos}
                         setCurrency={isSwapped ? setCurrencyInput : setCryptoInput}
@@ -138,7 +146,7 @@ const CurrencyConverter = ({ route }) => {
                     <TouchableOpacity
                         style={converter.swapButton}
                         onPress={swapTextInput}>
-                        <Ionicons name="md-swap-vertical" size={24} color="black" />
+                        <Ionicons name="md-swap-vertical" size={24} color={data !== converterDM ? "black" : "white"} />
                     </TouchableOpacity>
                     <DropdownList
                         currencyItems={isSwapped ? cryptos : currencies}

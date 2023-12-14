@@ -1,9 +1,9 @@
 const { StyleSheet } = require('react-native')
 
-const loadingLM = StyleSheet.create({
+const loadingDM = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#282828',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -13,11 +13,15 @@ const loadingLM = StyleSheet.create({
     resizeMode: 'contain'
   },
 
+  text: {
+    color: 'white'
+  },
+
 });
 
-const errorLM = StyleSheet.create({
+const errorDM = StyleSheet.create({
   Errorcontainer: {
-    backgroundColor: "white",
+    backgroundColor: "#282828",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -25,19 +29,21 @@ const errorLM = StyleSheet.create({
   },
   errorHeader: {
     fontSize: 30,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    color: "white"
   },
   errorMsg: {
     fontSize: 16,
     width: 230,
-    textAlign: "center"
+    textAlign: "center",
+    color: "white"
   }
 })
 
-const dataLM = StyleSheet.create({
+const dataDM = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#282828'
   },
 
   logo: {
@@ -52,25 +58,30 @@ const dataLM = StyleSheet.create({
     marginLeft: 14,
     marginRight: 30,
     marginBottom: 20,
+
   },
 
   header: {
     fontSize: 20,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    color: "white"
   },
 
   text: {
-    fontSize: 13
+    fontSize: 13,
+    color: "white"
   },
 
   bold: {
-    fontWeight: "bold"
+    fontWeight: "bold",
+    color: "white"
   },
 
   subHeader: {
     fontSize: 16,
     marginLeft: 14,
-    marginBottom: 10
+    marginBottom: 10,
+    color: "white"
   },
 
   tableTittleRow: {
@@ -83,7 +94,7 @@ const dataLM = StyleSheet.create({
   },
 
   tableTittle: {
-    color: "black",
+    color: "white",
     fontSize: 12
   },
 
@@ -100,6 +111,7 @@ const dataLM = StyleSheet.create({
 
   tableText: {
     fontSize: 11,
+    color: "white"
   },
 
   tableTextColor: {
@@ -150,15 +162,16 @@ const dataLM = StyleSheet.create({
 
   closeIcon: {
     marginRight: 14
-  }
+  },
+
 
 })
 
-const specificLM = StyleSheet.create({
+const specificDM = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#282828',
   },
 
   centeredContainer: {
@@ -168,10 +181,7 @@ const specificLM = StyleSheet.create({
 
   timePeriodContainer: {
     padding: 10,
-    paddingTop: 0,
     flexDirection: "row",
-    alignItems: 'center',
-    justifyContent: 'center',
     gap: 15
   },
 
@@ -187,6 +197,7 @@ const specificLM = StyleSheet.create({
 
   chartContainer: {
     borderWidth: 1,
+    backgroundColor: 'white',
     borderColor: 'black',
     borderRadius: 16,
     overflow: 'hidden', // This is important to prevent overflow of border
@@ -200,15 +211,18 @@ const specificLM = StyleSheet.create({
   coinNameHeading: {
     fontWeight: "bold",
     fontSize: 20,
+    color: "white"
   },
 
   dataHeading: {
     fontWeight: "bold",
     fontSize: 13,
+    color: "white"
   },
 
   dataText: {
     fontSize: 13,
+    color: "white"
   },
 
   SpecificStockButton: {
@@ -232,13 +246,13 @@ const specificLM = StyleSheet.create({
   },
 })
 
-const converter = StyleSheet.create({
+const converterDM = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
-    backgroundColor: "white",
+    backgroundColor: "#282828",
   },
 
   header: {
@@ -306,7 +320,7 @@ const converter = StyleSheet.create({
 
   textInput: {
     width: 100,
-    height: 40,
+    height: 40
   },
 
   dropdownButton: {
@@ -340,10 +354,9 @@ const converter = StyleSheet.create({
     width: 300
   },
   resultText: {
-    color: "black",
+    color: "white",
     fontSize: 18
   }
-
 })
 
-export { loadingLM, errorLM, dataLM, specificLM, converter };
+export { loadingDM, errorDM, dataDM, specificDM, converterDM };

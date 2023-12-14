@@ -6,8 +6,11 @@ import { AntDesign, FontAwesome } from '@expo/vector-icons'
 import { useState, useEffect, useRef } from 'react';
 import { Image as ExpoImage } from 'expo-image';
 import { useScrollToTop } from '@react-navigation/native';
-import { data } from '../style/styles'
+import { dataLM } from '../style/styles'
+import { dataDM } from '../style/stylesDM'
 import ErrorScreen from './ErrorScreen';
+import DarkModeContext from './DarkModeContext';
+import { useContext } from 'react';
 
 
 const Coins = ({ navigation }) => {
@@ -18,6 +21,10 @@ const Coins = ({ navigation }) => {
     const [searchItems, setSearchItems] = useState([])
     const [searching, setSearching] = useState(false)
     const [error, setError] = useState(false)
+
+    const { darkModeSet } = useContext(DarkModeContext);
+
+    const data = darkModeSet ? dataDM : dataLM;
 
     const ref = useRef(null);
 
@@ -115,7 +122,7 @@ const Coins = ({ navigation }) => {
                                         <View style={data.tableTittleRow}>
                                             <Text style={data.tableTittle}>Price</Text>
                                             <View style={data.tableTittleSpace}>
-                                                <FontAwesome name="sort" size={12} color="black" />
+                                                <FontAwesome name="sort" size={12} color={data !== dataDM ? "black" : "white"} />
                                             </View>
                                         </View>
                                     </DataTable.Title>
@@ -123,7 +130,7 @@ const Coins = ({ navigation }) => {
                                         <View style={data.tableTittleRow}>
                                             <Text style={data.tableTittle}>Change</Text>
                                             <View style={data.tableTittleSpace}>
-                                                <FontAwesome name="sort" size={12} color="black" />
+                                                <FontAwesome name="sort" size={12} color={data !== dataDM ? "black" : "white"} />
                                             </View>
                                         </View>
                                     </DataTable.Title>
