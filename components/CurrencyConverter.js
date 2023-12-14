@@ -11,6 +11,9 @@ import ErrorScreen from "./ErrorScreen"
 import { converter } from '../style/styles'
 import { converterDM } from '../style/stylesDM'
 
+import { useContext } from 'react'
+import DarkModeContext from './DarkModeContext'
+
 const CurrencyConverter = ({ route }) => {
     const [cryptoInput, setCryptoInput] = useState("BTC")
     const [currencyInput, setCurrencyInput] = useState("USD")
@@ -22,7 +25,8 @@ const CurrencyConverter = ({ route }) => {
     const [currencies, setCurrencies] = useState([])
     const [error, setError] = useState(false)
 
-    const data = converterDM
+    const { darkModeSet } = useContext(DarkModeContext)
+    const data = darkModeSet ? converterDM : converter
 
     useEffect(() => {
         setAmount(1)

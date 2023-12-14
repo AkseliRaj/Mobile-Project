@@ -8,16 +8,19 @@ import { getCoins } from "../api/Functions";
 import { dataLM } from '../style/styles'
 import { dataDM, stylesDM } from '../style/stylesDM'
 import ErrorScreen from "./ErrorScreen";
+import DarkModeSwitch from "./DarkModeSwitch";
+import DarkModeContext from "./DarkModeContext";
+import { useContext } from "react";
 
 
 export default function Home({ navigation }) {
-
-
     const [items, setItems] = useState([])
     const [filter, setFilter] = useState(true)
     const [error, setError] = useState(false)
 
-    const data = dataDM
+    const { darkModeSet } = useContext(DarkModeContext);
+
+    const data = darkModeSet ? dataDM : dataLM;
 
     useEffect(() => {
         const fetchCoins = async () => {
@@ -57,7 +60,7 @@ export default function Home({ navigation }) {
                     style={data.logo}
                     source={logo}
                 />
-
+                <DarkModeSwitch />
                 <View style={data.article}>
                     <Text style={data.header}>Welcome to Cryptex</Text>
                     <Text style={data.text}>Stay up-to-date with the latest market trends and explore a wide range of currencies.</Text>

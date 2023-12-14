@@ -8,6 +8,8 @@ import { getCoinDetails } from '../api/Functions';
 import { specificLM } from '../style/styles'
 import { specificDM } from '../style/stylesDM'
 import ErrorScreen from './ErrorScreen';
+import DarkModeContext from './DarkModeContext';
+import { useContext } from 'react';
 
 // Hard coded uuid for testing purposes
 // const UUID = 'Qwsogvtv82FCd'
@@ -24,7 +26,9 @@ const SpecificCoin = ({ navigation, route }) => {
   const [selectedTimePeriod, setSelectedTimePeriod] = useState(null)
   const [timeframe, setTimeframe] = useState([])
 
-  const specific = specificDM
+
+  const { darkModeSet } = useContext(DarkModeContext);
+  const specific = darkModeSet ? specificDM : specificLM;
 
     
 

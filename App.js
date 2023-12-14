@@ -9,41 +9,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
+import HomeNavigator from './components/HomeNavigator';
+import StocksNavigator from './components/StocksNavigator';
+import DarkModeContext from './components/DarkModeContext';
+import { useContext } from 'react';
 
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
 
-
-const StocksNavigator = () => (
-  <Stack.Navigator>
-    <Stack.Screen
-      name='Coins'
-      component={Coins}
-      options={{ headerShown: true }}
-    />
-    <Stack.Screen
-      name='Specific coin'
-      component={SpecificCoin}
-      options={{ tabBarStyle: { display: 'none' } }}
-    />
-  </Stack.Navigator>
-);
-
-const HomeNavigator = () => (
-  <Stack.Navigator>
-    <Stack.Screen
-      name='Home'
-      component={Home}
-      options={{ headerShown: true }}
-    />
-    <Stack.Screen
-      name='Specific coin'
-      component={SpecificCoin}
-      options={{ tabBarStyle: { display: 'none' } }}
-    />
-  </Stack.Navigator>
-);
 
 /**
  * resets tabs with stacknavigators to the first route when navigation to another tab
@@ -63,7 +36,7 @@ const resetTabStacksOnBlur = ({ navigation }) => ({
 export default function App() {
 
   const [isloading, setIsLoading] = useState(true);
-  const [darkModeSet, setDarkModeSet] = useState(true);
+  const [darkModeSet, setDarkModeSet] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -75,6 +48,10 @@ export default function App() {
     }, 2000)
   })
 
+  useEffect(() => {
+    console.log('dark mode set to: ', darkModeSet);
+  }, [])
+
   if (isloading) {
     return (
       <Loading />
@@ -83,50 +60,56 @@ export default function App() {
   else {
 
     return (
-      <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={{
-            tabBarActiveTintColor: '#004CFF',
-            tabBarInactiveTintColor: darkModeSet ? 'white' : '#5B5B5B',
-            tabBarLabelPosition: 'beside-icon',
-            tabBarStyle: {
-              backgroundColor: darkModeSet ? '#363535' : 'white',
-          },
-          }}
-        >
-          <Tab.Screen
-            name='Name'
-            component={HomeNavigator}
-            listeners={resetTabStacksOnBlur}
-            options={{
-              tabBarLabelPosition: 'below-icon',
-              headerShown: false,
-              title: 'Home',
-              tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='home' size={25} color={color} />),
+      <DarkModeContext.Provider value={{ darkModeSet, setDarkModeSet }}>
+        <NavigationContainer darkModeSet={darkModeSet}>
+          <Tab.Navigator
+            screenOptions={{
+              tabBarActiveTintColor: '#004CFF',
+              tabBarInactiveTintColor: darkModeSet ? 'white' : '#5B5B5B',
+              tabBarLabelPosition: 'beside-icon',
+              tabBarStyle: {
+                backgroundColor: darkModeSet ? '#363535' : 'white',
+            },
             }}
-          />
-          <Tab.Screen
-            name='Default'
-            component={StocksNavigator}
-            listeners={resetTabStacksOnBlur}
-            options={{
-              tabBarLabelPosition: 'below-icon',
-              headerShown: false,
-              title: 'Coins',
-              tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='magnify' size={25} color={color} />),
-            }}
-          />
-          <Tab.Screen
-            name='Currency converter'
-            component={CurrencyConverter}
-            options={{
-              tabBarLabelPosition: 'below-icon',
-              tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='calculator-variant' size={25} color={color} />),
-            }}
-          />
-        </Tab.Navigator>
-        <StatusBar style='auto' />
-      </NavigationContainer>
+          >
+            <Tab.Screen
+              name='Name'
+              component={HomeNavigator}
+              listeners={resetTabStacksOnBlur}
+              options={{
+                tabBarLabelPosition: 'below-icon',
+                headerShown: false,
+                title: 'Home',
+                tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='home' size={25} color={color} />),
+              }}
+            />
+            <Tab.Screen
+              name='Default'
+              component={StocksNavigator}
+              listeners={resetTabStacksOnBlur}
+              options={{
+                tabBarLabelPosition: 'below-icon',
+                headerShown: false,
+                title: 'Coins',
+                tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='magnify' size={25} color={color} />),
+              }}
+            />
+            <Tab.Screen
+              name='Currency converter'
+              component={CurrencyConverter}
+              options={{
+                tabBarLabelPosition: 'below-icon',
+                tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='calculator-variant' size={25} color={color} />),
+                headerStyle: {
+                  backgroundColor: darkModeSet ? '#282828' : 'white'
+                },
+                headerTintColor: darkModeSet ? 'white' : 'black',  
+              }}
+            />
+          </Tab.Navigator>
+          <StatusBar style='auto' />
+        </NavigationContainer>
+      </DarkModeContext.Provider>
     );
   }
 }

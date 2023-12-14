@@ -9,6 +9,8 @@ import { useScrollToTop } from '@react-navigation/native';
 import { dataLM } from '../style/styles'
 import { dataDM } from '../style/stylesDM'
 import ErrorScreen from './ErrorScreen';
+import DarkModeContext from './DarkModeContext';
+import { useContext } from 'react';
 
 
 const Coins = ({ navigation }) => {
@@ -20,7 +22,9 @@ const Coins = ({ navigation }) => {
     const [searching, setSearching] = useState(false)
     const [error, setError] = useState(false)
 
-    const data = dataDM
+    const { darkModeSet } = useContext(DarkModeContext);
+
+    const data = darkModeSet ? dataDM : dataLM;
 
     const ref = useRef(null);
 
