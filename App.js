@@ -1,7 +1,7 @@
 import Home from './components/Home';
 import Loading from './components/Loading';
 import Coins from './components/Search';
-import CurrencyConverter from './components/CurrencyConverter';
+import CurrencyConverter from './components/Converter';
 import SpecificCoin from './components/Coin';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
