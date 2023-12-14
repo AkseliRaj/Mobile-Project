@@ -74,7 +74,7 @@ const dataLM = StyleSheet.create({
   },
 
   tableTittleRow: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     alignItems: 'center'
   },
 
@@ -303,7 +303,7 @@ const converter = StyleSheet.create({
 
   textInput: {
     width: 100,
-    height: 40
+    height: 40,
   },
 
   dropdownButton: {
@@ -322,7 +322,7 @@ const converter = StyleSheet.create({
     alignItems: "center"
   },
 
-  text: {
+  buttonText: {
     color: "#FFFFFF",
     fontSize: 15
   },
@@ -335,7 +335,11 @@ const converter = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: 300
-}
+  },
+  resultText: {
+    color: "black",
+    fontSize: 18
+  }
 
 })
 

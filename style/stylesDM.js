@@ -12,7 +12,7 @@ const loadingDM = StyleSheet.create({
     height: 230,
     resizeMode: 'contain'
   },
-  
+
   text: {
     color: 'white'
   },
@@ -58,7 +58,7 @@ const dataDM = StyleSheet.create({
     marginLeft: 14,
     marginRight: 30,
     marginBottom: 20,
-    
+
   },
 
   header: {
@@ -85,7 +85,7 @@ const dataDM = StyleSheet.create({
   },
 
   tableTittleRow: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     alignItems: 'center'
   },
 
@@ -252,7 +252,7 @@ const converterDM = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
-    backgroundColor: "white",
+    backgroundColor: "#282828",
   },
 
   header: {
@@ -339,7 +339,7 @@ const converterDM = StyleSheet.create({
     alignItems: "center"
   },
 
-  text: {
+  buttonText: {
     color: "#FFFFFF",
     fontSize: 15
   },
@@ -352,8 +352,11 @@ const converterDM = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: 300
-}
-
+  },
+  resultText: {
+    color: "white",
+    fontSize: 18
+  }
 })
 
 export { loadingDM, errorDM, dataDM, specificDM, converterDM };

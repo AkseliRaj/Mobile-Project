@@ -55,6 +55,7 @@ const DropdownList = ({ currencyItems, setCurrency, placeholderValue, setAmount,
                 style={converter.textInput}
                 keyboardType='decimal-pad'
                 returnKeyType="done"
+                placeholderTextColor="black"
                 textAlign='right'
                 placeholder={String(placeholderValue)}
                 onChangeText={setAmount ? v => setAmount(Number(v.replace(/,/g, '.'))) : null}
