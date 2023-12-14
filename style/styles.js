@@ -15,7 +15,26 @@ const loadingLM = StyleSheet.create({
 
 });
 
-const data = StyleSheet.create({
+const errorLM = StyleSheet.create({
+  Errorcontainer: {
+    backgroundColor: "white",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 20
+  },
+  errorHeader: {
+    fontSize: 30,
+    fontWeight: "bold"
+  },
+  errorMsg: {
+    fontSize: 16,
+    width: 230,
+    textAlign: "center"
+  }
+})
+
+const dataLM = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff'

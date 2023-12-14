@@ -24,7 +24,7 @@ const HomeNavigator = () => {
         }, }}
         />
         <Stack.Screen
-        name='Specific coin'
+        name='Coin'
         component={SpecificCoin}
         options={{ tabBarStyle: { display: 'none' },
         headerTintColor: darkModeSet ? 'white' : 'black',

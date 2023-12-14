@@ -16,7 +16,7 @@ const StocksNavigator = () => {
   return (
     <Stack.Navigator>
         <Stack.Screen
-        name='Coins'
+        name='Search'
         component={Coins}
         options={{ headerShown: true,
         headerTintColor: darkModeSet ? 'white' : 'black',
@@ -26,7 +26,7 @@ const StocksNavigator = () => {
         }}
         />
         <Stack.Screen
-        name='Specific coin'
+        name='Coin'
         component={SpecificCoin}
         options={{ tabBarStyle: { display: 'none' },
         headerTintColor: darkModeSet ? 'white' : 'black',
