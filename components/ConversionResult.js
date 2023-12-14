@@ -1,7 +1,5 @@
 import { View, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
-
-import { converter } from '../style/styles'
 import { converterDM } from '../style/stylesDM'
 
 const ConversionResult = ({ isSwapped, isConverted, amount, crypto, currency, result }) => {

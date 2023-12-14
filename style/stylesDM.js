@@ -181,7 +181,10 @@ const specificDM = StyleSheet.create({
 
   timePeriodContainer: {
     padding: 10,
+    paddingTop: 0,
     flexDirection: "row",
+    alignItems: 'center',
+    justifyContent: 'center',
     gap: 15
   },
 

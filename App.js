@@ -1,18 +1,13 @@
-import Home from './components/Home';
 import Loading from './components/Loading';
-import Coins from './components/Search';
-import CurrencyConverter from './components/Converter';
-import SpecificCoin from './components/Coin';
+import Converter from './components/Converter';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
 import HomeNavigator from './components/HomeNavigator';
 import StocksNavigator from './components/StocksNavigator';
 import DarkModeContext from './components/DarkModeContext';
-import { useContext } from 'react';
 
 
 const Tab = createBottomTabNavigator();
@@ -90,13 +85,13 @@ export default function App() {
               options={{
                 tabBarLabelPosition: 'below-icon',
                 headerShown: false,
-                title: 'Coins',
+                title: 'Search',
                 tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='magnify' size={25} color={color} />),
               }}
             />
             <Tab.Screen
-              name='Currency converter'
-              component={CurrencyConverter}
+              name='Converter'
+              component={Converter}
               options={{
                 tabBarLabelPosition: 'below-icon',
                 tabBarIcon: ({ color }) => (<MaterialCommunityIcons name='calculator-variant' size={25} color={color} />),

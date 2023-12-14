@@ -14,7 +14,7 @@ import { converterDM } from '../style/stylesDM'
 import { useContext } from 'react'
 import DarkModeContext from './DarkModeContext'
 
-const CurrencyConverter = ({ route }) => {
+const Converter = ({ route }) => {
     const [cryptoInput, setCryptoInput] = useState("BTC")
     const [currencyInput, setCurrencyInput] = useState("USD")
     const [amount, setAmount] = useState(1)
@@ -178,4 +178,4 @@ const CurrencyConverter = ({ route }) => {
     }
 }
 
-export default CurrencyConverter
+export default Converter

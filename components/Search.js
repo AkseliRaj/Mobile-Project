@@ -114,7 +114,7 @@ const Coins = ({ navigation }) => {
                                         <View style={data.tableTittleRow}>
                                             <Text style={data.tableTittle}>Name</Text>
                                             <View style={data.tableTittleSpace}>
-                                                <FontAwesome name="sort" size={12} color="black" />
+                                                <FontAwesome name="sort" size={12} color={data !== dataDM ? "black" : "white"}  />
                                             </View>
                                         </View>
                                     </DataTable.Title>

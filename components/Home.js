@@ -6,7 +6,7 @@ import { Image as ExpoImage } from 'expo-image';
 import logo from '../assets/OnlyLogo.png';
 import { getCoins } from "../api/Functions";
 import { dataLM } from '../style/styles'
-import { dataDM, stylesDM } from '../style/stylesDM'
+import { dataDM } from '../style/stylesDM'
 import ErrorScreen from "./ErrorScreen";
 import DarkModeSwitch from "./DarkModeSwitch";
 import DarkModeContext from "./DarkModeContext";
@@ -84,7 +84,7 @@ export default function Home({ navigation }) {
                             <View style={data.tableTittleRow}>
                                 <Text style={data.tableTittle}>Name</Text>
                                 <View style={data.tableTittleSpace}>
-                                    <FontAwesome name="sort" size={12} color="black" />
+                                    <FontAwesome name="sort" size={12} color={data !== dataDM ? "black" : "white"} />
                                 </View>
                             </View>
                         </DataTable.Title>
