@@ -15,26 +15,7 @@ const loadingLM = StyleSheet.create({
 
 });
 
-const errorLM = StyleSheet.create({
-  Errorcontainer: {
-    backgroundColor: "white",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 20
-  },
-  errorHeader: {
-    fontSize: 30,
-    fontWeight: "bold"
-  },
-  errorMsg: {
-    fontSize: 16,
-    width: 230,
-    textAlign: "center"
-  }
-})
-
-const dataLM = StyleSheet.create({
+const data = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff'
@@ -51,7 +32,7 @@ const dataLM = StyleSheet.create({
     gap: 12,
     marginLeft: 14,
     marginRight: 30,
-    marginBottom: 20
+    marginBottom: 20,
   },
 
   header: {
@@ -168,7 +149,10 @@ const specificLM = StyleSheet.create({
 
   timePeriodContainer: {
     padding: 10,
+    paddingTop: 0,
     flexDirection: "row",
+    alignItems: 'center',
+    justifyContent: 'center',
     gap: 15
   },
 

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import ConvertButton from './ConvertButton'
 import React from 'react'
@@ -27,4 +27,3 @@ const ErrorScreen = () => {
 }
 
 export default ErrorScreen
-

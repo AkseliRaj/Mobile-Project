@@ -26,7 +26,7 @@ export default function Home({ navigation }) {
         const fetchCoins = async () => {
             const result = await getCoins();
 
-            if(result === "error") {
+            if (result === "error") {
                 setError(true)
                 return 0
             }
@@ -53,6 +53,14 @@ export default function Home({ navigation }) {
         setItems(change);
     }
 
+    function rankFilter() {
+        let lowerRank = [...items].sort((a, b) => b.rank - a.rank);
+        let higherRank = [...items].sort((a, b) => a.rank - b.rank);
+        let rank = filter ? lowerRank : higherRank;
+        setFilter((prevFilter) => !prevFilter);
+        setItems(rank);
+    }
+
     if (!error) {
         return (
             <ScrollView style={data.container}>
@@ -72,8 +80,13 @@ export default function Home({ navigation }) {
                 <Text style={data.subHeader}>Stocks, with the biggest <Text style={data.bold}>price:</Text></Text>
                 <DataTable>
                     <DataTable.Header>
-                        <DataTable.Title>
-                            <Text style={data.tableTittle}>Name</Text>
+                        <DataTable.Title onPress={rankFilter}>
+                            <View style={data.tableTittleRow}>
+                                <Text style={data.tableTittle}>Name</Text>
+                                <View style={data.tableTittleSpace}>
+                                    <FontAwesome name="sort" size={12} color="black" />
+                                </View>
+                            </View>
                         </DataTable.Title>
                         <DataTable.Title onPress={priceFilter} numeric>
                             <View style={data.tableTittleRow}>
@@ -95,32 +108,34 @@ export default function Home({ navigation }) {
                     </DataTable.Header>
 
                     {items.slice(0, 3).map((item, index) => (
-                        <DataTable.Row key={index}>
-                            <DataTable.Cell>
-                                <View style={data.tableRow}>
-                                    <ExpoImage
-                                        style={data.tableIcon}
-                                        source={{ uri: item.iconUrl }}
-                                        contentFit="contain"
-                                    />
-                                    <View>
-                                        <Text style={data.tableText}>{item.name}</Text>
-                                        <Text style={data.tableTextColor}>{item.symbol}</Text>
+                        <Pressable onPress={() => navigation.navigate('Coin', { uuid: item.uuid })} key={index}>
+                            <DataTable.Row>
+                                <DataTable.Cell>
+                                    <View style={data.tableRow}>
+                                        <ExpoImage
+                                            style={data.tableIcon}
+                                            source={{ uri: item.iconUrl }}
+                                            contentFit="contain"
+                                        />
+                                        <View>
+                                            <Text style={data.tableText}>{item.name}</Text>
+                                            <Text style={data.tableTextColor}>{item.symbol}</Text>
+                                        </View>
                                     </View>
-                                </View>
-                            </DataTable.Cell>
-                            <DataTable.Cell numeric>
-                                <Text style={data.tableText}>${parseFloat(item.price).toFixed(2)}</Text>
-                            </DataTable.Cell>
-                            <DataTable.Cell numeric>
-                                <Text style={data.tableText}>{item.change}</Text>
-                            </DataTable.Cell>
-                            <DataTable.Cell style={data.tableButtonCell}>
-                                <Pressable style={data.tableButton} onPress={() => navigation.navigate('Specific coin', { uuid: item.uuid })}>
-                                    <Text style={data.tableButtonText}>Open</Text>
-                                </Pressable>
-                            </DataTable.Cell>
-                        </DataTable.Row>
+                                </DataTable.Cell>
+                                <DataTable.Cell numeric>
+                                    <Text style={data.tableText}>${parseFloat(item.price).toFixed(2)}</Text>
+                                </DataTable.Cell>
+                                <DataTable.Cell numeric>
+                                    <Text style={data.tableText}>{item.change}</Text>
+                                </DataTable.Cell>
+                                <DataTable.Cell style={data.tableButtonCell}>
+                                    <Pressable style={data.tableButton} onPress={() => navigation.navigate('Coin', { uuid: item.uuid })}>
+                                        <Text style={data.tableButtonText}>Open</Text>
+                                    </Pressable>
+                                </DataTable.Cell>
+                            </DataTable.Row>
+                        </Pressable>
                     ))}
 
                 </DataTable>

@@ -132,7 +132,7 @@ const CurrencyConverter = ({ route }) => {
     if (!error) {
         return (
             <View style={[data.container, { paddingTop: Constants.statusBarHeight }]}>
-                <Text style={[data.header, {color: data !== converterDM ? "black" : "white"}]}>Currency converter</Text>
+                <Text style={[data.header, {color: data !== converterDM ? "black" : "white"}]}>Conversion calculator</Text>
                 <Text style={[data.subHeader, {color: data !== converterDM ? "black" : "white"}]}>Convert {isSwapped ? currencyInput : cryptoInput} to {isSwapped ? cryptoInput : currencyInput}</Text>
                 <View style={data.converterContainer}>
                     <DropdownList

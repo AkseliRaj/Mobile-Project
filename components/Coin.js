@@ -36,7 +36,7 @@ const SpecificCoin = ({ navigation, route }) => {
 
   const navigateToCurrencyConverter = () => {
     navigation.popToTop();
-    navigation.navigate('Currency converter', coin);
+    navigation.navigate('Converter', coin);
   };
 
   // Getting data from the API
@@ -50,7 +50,7 @@ const SpecificCoin = ({ navigation, route }) => {
       setError(true)
       return 0
     }
-    
+
     const convertedSparkline = result.sparkline.map(dataPoint => parseFloat(dataPoint));
     const filteredSparkline = convertedSparkline.filter((dataPoint) => isNaN(dataPoint) === false)
 
@@ -149,17 +149,6 @@ const SpecificCoin = ({ navigation, route }) => {
     return (
       <ScrollView style={specific.container}>
         <View style={specific.centeredContainer}>
-          <View style={specific.timePeriodContainer}>
-            {timePeriods.map((item, i) => (
-              <Pressable
-                key={item + i}
-                onPress={() => fetchCoinDetails(item)}
-              >
-                <Text style={{ color: selectedTimePeriod === item ? "#004CFF" : specific !== specificDM ? 'black' : 'white' }}>{item}</Text>
-              </Pressable>
-            ))
-            }
-          </View>
           <View style={specific.chartContainer}>
             <LineChart
               data={{
@@ -192,10 +181,21 @@ const SpecificCoin = ({ navigation, route }) => {
               }}
 
               style={{
-                marginVertical: 8,
+                marginTop: 10,
                 borderRadius: 16,
               }}
             />
+            <View style={specific.timePeriodContainer}>
+              {timePeriods.map((item, i) => (
+                <Pressable
+                  key={item + i}
+                  onPress={() => fetchCoinDetails(item)}
+                >
+                  <Text style={{ color: selectedTimePeriod === item ? "#004CFF" : "black" }}>{item}</Text>
+                </Pressable>
+              ))
+              }
+            </View>
           </View>
           <View style={specific.dataWholeContainer}>
             <View style={specific.coinNameHeadingContainer}>
@@ -223,9 +223,8 @@ const SpecificCoin = ({ navigation, route }) => {
             </View>
           </View>
 
-
           <Pressable style={specific.SpecificStockButton} onPress={navigateToCurrencyConverter}>
-            <Text style={specific.SpecificStockButtonText}>Currency converter</Text>
+            <Text style={specific.SpecificStockButtonText}>Go to converter</Text>
           </Pressable>
         </View>
       </ScrollView>
