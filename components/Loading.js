@@ -1,5 +1,6 @@
 import { Image, Text, View } from "react-native";
 import logo from '../assets/LogoText.png'
+import logoDM from '../assets/LogoTextNegative.png'
 import { loadingLM } from '../style/styles'
 import { loadingDM } from '../style/stylesDM'
 import { useContext } from "react";
@@ -13,8 +14,8 @@ export default function Loading() {
     return (
         <View style={loading.container}>
             <Image
-                style={loading.logo}
-                source={logo}
+                style={loadingLM.logo}
+                source={darkModeSet ? logoDM : logo}
             />
             <Text style={loading.text}>Loading...</Text>
         </View>
