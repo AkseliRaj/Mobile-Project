@@ -5,10 +5,13 @@ import React from 'react'
 import { DevSettings } from 'react-native'
 import { errorLM } from '../style/styles'
 import { errorDM } from '../style/stylesDM'
+import { useContext } from 'react'
+import DarkModeContext from './DarkModeContext'
 
 const ErrorScreen = () => {
 
-    const error = errorDM
+  const { darkModeSet } = useContext(DarkModeContext);
+  const error = darkModeSet ? errorDM : errorLM;
 
   return (
     <View style={error.Errorcontainer}>
