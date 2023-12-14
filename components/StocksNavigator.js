@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import Coins from './Coins'
-import SpecificCoin from './SpecificCoin'
+import Coins from './Search'
+import SpecificCoin from './Coin'
 import { createStackNavigator } from '@react-navigation/stack';
 import DarkModeContext from './DarkModeContext';
 import { useContext } from 'react';
