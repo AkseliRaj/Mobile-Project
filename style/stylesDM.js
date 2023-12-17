@@ -191,7 +191,8 @@ const specificDM = StyleSheet.create({
     flexDirection: "row",
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 15
+    gap: 15,
+    backgroundColor: '#282828',
   },
 
   dataContainer: {
@@ -207,10 +208,11 @@ const specificDM = StyleSheet.create({
   chartContainer: {
     borderWidth: 1,
     backgroundColor: 'white',
-    borderColor: 'black',
+    borderColor: 'white',
     borderRadius: 16,
     overflow: 'hidden', // This is important to prevent overflow of border
     padding: 5,
+    backgroundColor: '#282828',
   },
 
   dataWholeContainer: {

@@ -164,15 +164,12 @@ const SpecificCoin = ({ navigation, route }) => {
               yAxisSuffix="$"
               yAxisInterval={1} // optional, defaults to 1
               chartConfig={{
-                backgroundColor: "#ffffff",
-                backgroundGradientFrom: "#ffffff",
-                backgroundGradientTo: "#ffffff",
+                backgroundColor: darkModeSet ? "#282828" : "#ffffff",
+                backgroundGradientFrom: darkModeSet ? "#282828" : "#ffffff",
+                backgroundGradientTo: darkModeSet ? "#282828" : "#ffffff",
                 decimalPlaces: 0, // optional, defaults to 2dp
                 color: (opacity = 1) => `rgba(0, 76, 255, ${opacity})`,
                 labelColor: (opacity = 1) => `rgba(109, 109, 109, ${opacity})`,
-                style: {
-                  borderRadius: 16
-                },
                 propsForDots: {
                   r: "4",
                   strokeWidth: "2",
@@ -191,7 +188,7 @@ const SpecificCoin = ({ navigation, route }) => {
                   key={item + i}
                   onPress={() => fetchCoinDetails(item)}
                 >
-                  <Text style={{ color: selectedTimePeriod === item ? "#004CFF" : "black" }}>{item}</Text>
+                  <Text style={{ color: selectedTimePeriod === item ? "#004CFF" : (darkModeSet ? "white" : "black")}}>{item}</Text>
                 </Pressable>
               ))
               }
