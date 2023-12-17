@@ -64,11 +64,13 @@ export default function Home({ navigation }) {
     if (!error) {
         return (
             <ScrollView style={data.container}>
-                <Image
-                    style={data.logo}
-                    source={logo}
-                />
-                <DarkModeSwitch />
+                <View style={data.topContainer}>
+                    <Image
+                        style={data.logo}
+                        source={logo}
+                    />
+                    <DarkModeSwitch />
+                </View>
                 <View style={data.article}>
                     <Text style={data.header}>Welcome to Cryptex</Text>
                     <Text style={data.text}>Stay up-to-date with the latest market trends and explore a wide range of currencies.</Text>

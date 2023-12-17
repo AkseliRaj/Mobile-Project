@@ -40,6 +40,12 @@ const dataLM = StyleSheet.create({
     backgroundColor: '#fff'
   },
 
+  topContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingRight: 30,
+  },
+
   logo: {
     height: 120,
     width: 127,
